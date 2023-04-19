@@ -1,27 +1,29 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=100%, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=, initial-scale=1.0" />
     <title>Caos News</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/LogoCaosNews.png' %}"/>
     <!-- LINK BOOTSTRAP -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/fontello.css">
-    <link rel="stylesheet" href="css/btnIngresar.css">
-
-</head>
-<body>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/fontello.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/btnIngresar.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+  </head>
+  <body>
     <!-- BARRA DE NAVEGACION -->
     <header>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">
-            <img src="img/LogoCaosNews.png"  width="64" height="64" class="d-inline-block align-left" alt="">
+          <a class="navbar-brand" href="{%url 'IND' %}">
+            <img src="{% static 'img/LogoCaosNews.png' %}"  width="64" height="64" class="d-inline-block align-left" alt="">
             Caos News
           </a>
           <button
-            class="navbar-toggler"
+            class="navbar-toggler active"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -29,33 +31,32 @@
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon active"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="index.html"
-                  >Principal</a
-                >
+                <a class="nav-link active" aria-current="page" href="{%url 'IND' %}">Principal</a>
+              </li>
+              <li ¿class="nav-item">
+                <a class="nav-link" href="{%url 'INT' %}">Internacional</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="internacional.html">Internacional</a>
+                <a class="nav-link" href="{%url 'ECO' %}">Economia</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="Economia.html">Economia</a>
+                <a class="nav-link" href="{%url 'SAL' %}">Salud</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="Salud.html">Salud</a>
+                <a class="nav-link" href="{%url 'DEP' %}">Deporte</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="Deportes.html">Deporte</a>
+                <a class="nav-link" href="{%url 'POL' %}">Politica</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="Politica.html">Politica</a>
+                <a class="nav-link" href="{%url 'REP' %}">Reportajes</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="Reportaje.html">Reportajes</a>
-              </li>
+
               <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"
@@ -63,8 +64,9 @@
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  >Contacto</a
                 >
+                  Contacto
+                </a>
                 <ul class="dropdown-menu">
                   <li>
                     <a
@@ -100,13 +102,14 @@
                   </li>
                   <li><hr class="dropdown-divider" /></li>
                   <li>
-                    <a class="dropdown-item icon-comment" href="contacto.html"
+                    <a class="dropdown-item icon-comment" href="{%url 'CON' %}"
                       >Mensaje</a
                     >
                   </li>
                 </ul>
               </li>
             </ul>
+
             <form class="d-flex" role="search">
               <input
                 class="form-control me-2"
@@ -120,9 +123,8 @@
               >
                 Buscar
               </button>
-              <a href="ingreso.html" class="btn btn-outline-info" role="button"
-                >Ingresar</a
-              >
+              <a href="{%url 'LOG' %}" class="btn btn-outline-info" role="button"
+                >Ingresar</a>
             </form>
           </div>
         </div>
@@ -140,7 +142,7 @@
                 
                 <!-- IMAGENES 1 -->
                 <div class="card" style="width: 100%;height: 600px;">
-                  <img src="img/ejemplo/transbank.jpg" class="card-img-top" alt="...">
+                  <img src="{% static 'img/ejemplo/transbank.jpg' %}" class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
                     <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat beatae saepe dignissimos.</p>
@@ -152,7 +154,7 @@
               <!-- IMAGENES 2 -->
               <div class="col-lg-4">
                 <div class="card" style="width: 100%;height: 600px;">
-                  <img src="img/ejemplo/Dolares.jpg" class="card-img-top" alt="...">
+                  <img src="{% static 'img/ejemplo/Dolares.jpg' %}" class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
                     <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat beatae saepe dignissimos.</p>
@@ -163,7 +165,7 @@
               <!-- IMAGENES 3 -->
               <div class="col-lg-4">
                 <div class="card" style="width: 100%;height: 600px;">
-                  <img src="img/ejemplo/Junta-BCI-_JC.jpg" class="card-img-top" alt="...">
+                  <img src="{% static 'img/ejemplo/Junta-BCI-_JC.jpg' %}" class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
                     <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat beatae saepe dignissimos.</p>
@@ -178,7 +180,7 @@
             <div class="row">
               <div class="col-lg-4">
                 <div class="card" style="width: 100%;height: 600px;">
-                   <img src="img/ejemplo/grafico chile.jpg" class="card-img-top" alt="...">
+                   <img src="{% static 'img/ejemplo/grafico chile.jpg' %}" class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
                     <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat beatae saepe dignissimos.</p>
@@ -188,7 +190,7 @@
               </div>
                 <div class="col-lg-4">
                   <div class="card" style="width: 100%;height: 600px;">
-                    <img src="img/ejemplo/billetes.jpg" class="card-img-top" alt="...">
+                    <img src="{% static 'img/ejemplo/billetes.jpg' %}" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
                       <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat beatae saepe dignissimos.</p>
@@ -198,7 +200,7 @@
                 </div>
                 <div class="col-lg-4">
                   <div class="card" style="width: 100%;height: 600px;">
-                    <img src="img/ejemplo/moneda.jpg" class="card-img-top" alt="...">
+                    <img src="{% static 'img/ejemplo/moneda.jpg' %}" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
                       <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat beatae saepe dignissimos.</p>
@@ -274,7 +276,7 @@
           <!-- Featured image -->
           <div class="bg-image hover-overlay shadow-1-strong ripple rounded-5 mb-4"
             data-mdb-ripple-color="light">
-            <img src="img/ejemplo/Morro-de-Arica (1).jpg" class="img-fluid" />
+            <img src="{% static 'img/ejemplo/Morro-de-Arica (1).jpg' %}" class="img-fluid" />
             <a href="plantilla_noticias_video.html">
               <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
             </a>
@@ -309,7 +311,7 @@
           <a href="" class="text-dark">
             <div class="row mb-4 border-bottom pb-2">
               <div class="col-3">
-                <img src="img/ejemplo/gabriel-boric-2-925x470.jpg"
+                <img src="{% static 'img/ejemplo/gabriel-boric-2-925x470.jpg' %}"
                   class="img-fluid shadow-1-strong rounded" alt="Hollywood Sign on The Hill" />
               </div>
 
@@ -326,7 +328,7 @@
           <a href="" class="text-dark">
             <div class="row mb-4 border-bottom pb-2">
               <div class="col-3">
-                <img src="img/ejemplo/Parlamentarios-1.jpg"
+                <img src="{% static 'img/ejemplo/Parlamentarios-1.jpg' %}"
                   class="img-fluid shadow-1-strong rounded" alt="" />
               </div>
 
@@ -343,7 +345,7 @@
           <a href="" class="text-dark">
             <div class="row mb-4 border-bottom pb-2">
               <div class="col-3">
-                <img src="img/ejemplo/carabinero-1280x720.jpg"
+                <img src="{% static 'img/ejemplo/carabinero-1280x720.jpg' %}"
                   class="img-fluid shadow-1-strong rounded" alt="" />
               </div>
 
@@ -360,7 +362,7 @@
           <a href="" class="text-dark">
             <div class="row mb-4 border-bottom pb-2">
               <div class="col-3">
-                <img src="img/ejemplo/cortesuprema.jpg"
+                <img src="{% static 'img/ejemplo/cortesuprema.jpg' %}"
                   class="img-fluid shadow-1-strong rounded" alt="" />
               </div>
 
@@ -382,7 +384,7 @@
           <!-- Imagen Destacada -->
           <div class="bg-image hover-overlay shadow-1-strong rounded-5 ripple mb-4"
             data-mdb-ripple-color="light">
-            <img src="img/ejemplo/LasCondes.png" class="img-fluid"
+            <img src="{% static 'img/ejemplo/LasCondes.png' %}" class="img-fluid"
               alt="Brooklyn Bridge" />
             <a href="#!">
               <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
@@ -420,7 +422,7 @@
           <a href="" class="text-dark">
             <div class="row mb-4 border-bottom pb-2">
               <div class="col-3">
-                <img src="img/ejemplo/Plaza_de_Armas.jpg"
+                <img src="{% static 'img/ejemplo/Plaza_de_Armas.jpg' %}"
                   class="img-fluid shadow-1-strong rounded" alt="" />
               </div>
 
@@ -437,7 +439,7 @@
           <a href="" class="text-dark">
             <div class="row mb-4 border-bottom pb-2">
               <div class="col-3">
-                <img src="img/ejemplo/descargar.png"
+                <img src="{% static 'img/ejemplo/descargar.png' %}"
                   class="img-fluid shadow-1-strong rounded" alt="" />
               </div>
 
@@ -493,7 +495,7 @@
           <!-- Featured image -->
           <div class="bg-image hover-overlay shadow-1-strong rounded-5 ripple mb-4"
             data-mdb-ripple-color="light">
-            <img src="img/ejemplo/situacion-en-chile_2020.09.22.png" class="img-fluid"
+            <img src="{% static 'img/ejemplo/situacion-en-chile_2020.09.22.png' %}" class="img-fluid"
               alt="Golden Gate National Recreation Area" />
             <a href="#!">
               <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
@@ -531,7 +533,7 @@
           <a href="" class="text-dark">
             <div class="row mb-4 border-bottom pb-2">
               <div class="col-3">
-                <img src="img/ejemplo/fc681e17ec57ba5c6c51138105f445070a464dc6.png"
+                <img src="{% static 'img/ejemplo/fc681e17ec57ba5c6c51138105f445070a464dc6.png' %}"
                   class="img-fluid shadow-1-strong rounded" alt="" />
               </div>
 
@@ -548,7 +550,7 @@
           <a href="" class="text-dark">
             <div class="row mb-4 border-bottom pb-2">
               <div class="col-3">
-                <img src="img/ejemplo/plantel_colocolo-gas00266_crop1680022349279.jpg_242310155.jpg"
+                <img src="{% static 'img/ejemplo/plantel_colocolo-gas00266_crop1680022349279.jpg_242310155.jpg' %}"
                   class="img-fluid shadow-1-strong rounded" alt="" />
               </div>
 
@@ -565,7 +567,7 @@
           <a href="" class="text-dark">
             <div class="row mb-4 border-bottom pb-2">
               <div class="col-3">
-                <img src="img/ejemplo/chile.jpg_1624932088.jpg"
+                <img src="{% static 'img/ejemplo/chile.jpg_1624932088.jpg' %}"
                   class="img-fluid shadow-1-strong rounded" alt="" />
               </div>
 
@@ -582,7 +584,7 @@
           <a href="" class="text-dark">
             <div class="row mb-4 border-bottom pb-2">
               <div class="col-3">
-                <img src="img/ejemplo/r1149209_1296x518_5-2.jpg"
+                <img src="{% static 'img/ejemplo/r1149209_1296x518_5-2.jpg' %}"
                   class="img-fluid shadow-1-strong rounded" alt="" />
               </div>
 
@@ -631,8 +633,10 @@
           <!--Grid column-->
           <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase"></h5>
-            <img src="img/LogoCaosNews.png"  width="90" height="90" class="d-inline-block align-left" alt="">
+            <a href="{%url 'IND' %}" target="_blank"> 
+            <img src="{% static 'img/LogoCaosNews.png' %}"  width="90" height="90" class="d-inline-block align-left" alt="">
             <ul class="list-unstyled mb-0">
+            </a>
               
             </ul>
           </div>
@@ -644,16 +648,16 @@
     
             <ul class="list-unstyled">
               <li>
-                <a href="internacional.html" class="text-dark">Internacional</a>
+                <a href="{%url 'INT' %}"class="text-dark">Internacional</a>
               </li>
               <li>
-                <a href="Economia.html" class="text-dark">Economia</a>
+                <a href="{%url 'ECO' %}" class="text-dark">Economia</a>
               </li>
               <li>
-                <a href="Salud.html" class="text-dark">Salud</a>
+                <a href="{%url 'SAL' %}" class="text-dark">Salud</a>
               </li>
               <li>
-                <a href="Reportaje.html" class="text-dark">Reportaje</a>
+                <a href="{%url 'REP' %}" class="text-dark">Reportaje</a>
               </li>
             </ul>
           </div>
@@ -664,13 +668,13 @@
     
             <ul class="list-unstyled mb-0">
               <li>
-                <a href="Politica.html" class="text-dark">Politica</a>
+                <a href="{%url 'POL' %}" class="text-dark">Politica</a>
               </li>
               <li>
-                <a href="Deportes.html" class="text-dark">Deportes</a>
+                <a href="{%url 'DEP' %}" class="text-dark">Deportes</a>
               </li>
               <li>
-                <a href="contacto.html" class="text-dark">Contacto</a>
+                <a href="{%url 'CON' %}" class="text-dark">Contacto</a>
               </li>
             </ul>
           </div>
@@ -693,12 +697,12 @@
       <!-- Copyright -->
       <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
         © 2023 Copyright:
-        <a class="text-dark" href="index.html">Caos News</a>
+        <a class="text-dark" href="{%url 'IND' %}">Caos News</a>
       </div>
       <!-- Copyright -->
     </footer>
-
-  <!-- SCRIPT BOOTSTRAP -->
-  <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- SCRIPT BOOTSTRAP -->
+    <script src="{%static 'js/bootstrap.bundle.min.js' %}"></script>
+    
 </body>
 </html>

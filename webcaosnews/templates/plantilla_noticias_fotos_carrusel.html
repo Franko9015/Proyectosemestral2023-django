@@ -296,7 +296,7 @@
 
               </div>
             </div>
-              <!---FOOOTER-->
+    <!---FOOOTER-->
     <footer class="bg-light text-center text-lg-start">
       <!-- Grid container -->
       <div class="container p-4">
@@ -305,8 +305,10 @@
           <!--Grid column-->
           <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase"></h5>
-            <img src="img/LogoCaosNews.png"  width="90" height="90" class="d-inline-block align-left" alt="">
+            <a href="{%url 'IND' %}" target="_blank"> 
+            <img src="{% static 'img/LogoCaosNews.png' %}"  width="90" height="90" class="d-inline-block align-left" alt="">
             <ul class="list-unstyled mb-0">
+            </a>
               
             </ul>
           </div>
@@ -318,16 +320,16 @@
     
             <ul class="list-unstyled">
               <li>
-                <a href="internacional.html" class="text-dark">Internacional</a>
+                <a href="{%url 'INT' %}"class="text-dark">Internacional</a>
               </li>
               <li>
-                <a href="Economia.html" class="text-dark">Economia</a>
+                <a href="{%url 'ECO' %}" class="text-dark">Economia</a>
               </li>
               <li>
-                <a href="Salud.html" class="text-dark">Salud</a>
+                <a href="{%url 'SAL' %}" class="text-dark">Salud</a>
               </li>
               <li>
-                <a href="Reportaje.html" class="text-dark">Reportaje</a>
+                <a href="{%url 'REP' %}" class="text-dark">Reportaje</a>
               </li>
             </ul>
           </div>
@@ -338,13 +340,13 @@
     
             <ul class="list-unstyled mb-0">
               <li>
-                <a href="Politica.html" class="text-dark">Politica</a>
+                <a href="{%url 'POL' %}" class="text-dark">Politica</a>
               </li>
               <li>
-                <a href="Deportes.html" class="text-dark">Deportes</a>
+                <a href="{%url 'DEP' %}" class="text-dark">Deportes</a>
               </li>
               <li>
-                <a href="contacto.html" class="text-dark">Contacto</a>
+                <a href="{%url 'CON' %}" class="text-dark">Contacto</a>
               </li>
             </ul>
           </div>
@@ -367,12 +369,11 @@
       <!-- Copyright -->
       <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
         © 2023 Copyright:
-        <a class="text-dark" href="index.html">Caos News</a>
+        <a class="text-dark" href="{%url 'IND' %}">Caos News</a>
       </div>
       <!-- Copyright -->
     </footer>
-
-            <!-- SCRIPT BOOTSTRAP -->
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- SCRIPT BOOTSTRAP -->
+    <script src="{%static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

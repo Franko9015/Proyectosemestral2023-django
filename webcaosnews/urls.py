@@ -13,6 +13,7 @@ from .views import noticia2
 from .views import noticia3
 from .views import login
 from .views import registro
+from .views import contacto
 
 #Ejemplo
 #path('',index,name='IND'),
@@ -29,5 +30,7 @@ urlpatterns = [
     path('reportajes/',reportaje,name='REP'),
     path('salud/',salud,name='SAL'),
     path('deportes/',deportes,name='DEP'),
-
+    path('Login/',login,name='LOG'),
+    path('Registro/',registro,name='REG'),
+    path('Contacto/',contacto,name='CON'),
 ]
