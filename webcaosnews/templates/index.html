@@ -1,0 +1,801 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=, initial-scale=1.0" />
+    <title>Caos News</title>
+    <!-- LINK BOOTSTRAP -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/fontello.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/btnIngresar.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+  </head>
+  <body>
+    <!-- BARRA DE NAVEGACION -->
+    <header>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">
+            <img src="{% static 'img/LogoCaosNews.png' %}"  width="64" height="64" class="d-inline-block align-left" alt="">
+            Caos News
+          </a>
+          <button
+            class="navbar-toggler active"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon active"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Principal</a>
+              </li>
+              <li ¿class="nav-item">
+                <a class="nav-link" href="internacional.html">Internacional</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Economia.html">Economia</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Salud.html">Salud</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Deportes.html">Deporte</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Politica.html">Politica</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Reportaje.html">Reportajes</a>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="..."
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Contacto
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a
+                      class="dropdown-item icon-facebook-squared"
+                      href="https://www.facebook.com/"
+                      target="_blank"
+                      >Facebook</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item icon-instagram"
+                      href="https://www.instagram.com/"
+                      target="_blank"
+                      >Instagram</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item icon-twitter"
+                      href="https://twitter.com/?lang=es"
+                      target="_blank"
+                      >Twitter</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item icon-whatsapp"
+                      href="https://web.whatsapp.com/"
+                      target="_blank"
+                      >Whatsapp</a
+                    >
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a class="dropdown-item icon-comment" href="contacto.html"
+                      >Mensaje</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Buscar"
+                aria-label="Search"
+              />
+              <button
+                class="btn btn-outline-success icon-scearch btn-margen-derecha"
+                type="submit"
+              >
+                Buscar
+              </button>
+              <a href="ingreso.html" class="btn btn-outline-info" role="button"
+                >Ingresar</a
+              >
+            </form>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">CaosNews Al Dia</p>
+      <!-- CARRUSEL DE NOTICIAS -->
+      <div
+        id="carouselExampleCaptions"
+        class="carousel slide carousel-fade"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <a href="plantilla_noticias_fotos.html">
+            <img
+              src="{% static 'img/ejemplo/gabriel-boric-2-925x470.jpg' %}"
+              class="d-block w-100"
+              alt="..."
+            /></a>
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Lorem ipsum dolor sit amet consectetur adipisicing.</h5>
+              <p>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste,
+                quae eius. Deleniti excepturi sunt dolor a amet saepe facilis.
+                Nobis, repellat! Eos molestias nam eaque laboriosam ratione ab
+                qui maxime.
+              </p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <a href="plantilla_noticias_fotos_carrusel.html">
+            <img
+              src="{% static 'img/ejemplo/A_UNO_1448443-e1679970734241-925x470.jpg' %}"
+              class="d-block w-100"
+              alt="..."
+            /></a>
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Lorem ipsum dolor sit.</h5>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut,
+                libero numquam. Pariatur, doloremque delectus..
+              </p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <a href="plantilla_noticias_fotos.html">
+            <img
+              src="{% static 'img/ejemplo/carabinero-1280x720.jpg' %}"
+              class="d-block w-100"
+              alt="..."
+            /></a>
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Lorem ipsum dolor sit amet consectetur adipisicing.</h5>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni,
+                quo.
+              </p>
+            </div>
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+      </div>
+      <br />
+
+      <!---Noticias-->
+      <div class="container">
+        <!--Section: Noticia del dia-->
+        <section class="border-bottom pb-4 mb-5">
+          <div class="row gx-5">
+            <div class="col-md-6 mb-4">
+              <div
+                class="bg-image hover-overlay ripple shadow-2-strong rounded-5"
+                data-mdb-ripple-color="light"
+              >
+                <img src="{% static 'img/ejemplo/55381541_303.jpg' %}" class="img-fluid" />
+                <a href="plantilla_noticias_fotos_carrusel.html">
+                  <div
+                    class="mask"
+                    style="background-color: rgba(251, 251, 251, 0.15)"
+                  ></div>
+                </a>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+              <span class="badge bg-danger px-2 py-1 shadow-1-strong mb-3"
+                >NOTICIA DEL DIA!</span
+              >
+              <h4><strong>Lorem ipsum dolor sit amet.</strong></h4>
+              <p class="text-muted">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
+                consequatur eligendi quisquam doloremque vero ex debitis
+                veritatis placeat unde animi laborum sapiente illo possimus,
+                commodi dignissimos obcaecati illum maiores corporis.
+              </p>
+              <a
+                href="plantilla_noticias_fotos_carrusel.html"
+                type="button"
+                class="btn btn-primary"
+                >Leer Mas</a
+              >
+            </div>
+          </div>
+        </section>
+        <!--Section: Noticia Del Dia-->
+
+        <!--Section: Contenido-->
+        <section>
+          <div class="row gx-lg-5">
+            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+              <!-- News block -->
+              <div>
+                <!-- Featured image -->
+                <div
+                  class="bg-image hover-overlay shadow-1-strong ripple rounded-5 mb-4"
+                  data-mdb-ripple-color="light"
+                >
+                  <img
+                    src="{% static 'img/ejemplo/Morro-de-Arica (1).jpg' %}"
+                    class="img-fluid"
+                  />
+                  <a href="plantilla_noticias_video.html">
+                    <div
+                      class="mask"
+                      style="background-color: rgba(251, 251, 251, 0.15)"
+                    ></div>
+                  </a>
+                </div>
+
+                <!-- Article data -->
+                <div class="row mb-3">
+                  <div class="col-6">
+                    <a href="internacional.html" class="text-info">
+                      <i class="fas fa-plane"></i>
+                      Internacional
+                    </a>
+                  </div>
+
+                  <div class="col-6 text-end">
+                    <u> 30 de marzo del 2023 </u>
+                  </div>
+                </div>
+
+                <!-- Article title and description -->
+                <a href="plantilla_noticias_video.html" class="text-dark">
+                  <h5>Lorem ipsum dolor sit amet consectetur.</h5>
+
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Odit, iste aliquid. Sed id nihil magni, sint vero provident
+                    esse numquam perferendis ducimus dicta adipisci iusto nam
+                    temporibus modi animi laboriosam?
+                  </p>
+                </a>
+
+                <hr />
+
+                <!-- Noticia Politica y Chismes -->
+                <a href="plantilla_noticias_fotos.html" class="text-dark">
+                  <div class="row mb-4 border-bottom pb-2">
+                    <div class="col-3">
+                      <img
+                        src="{% static 'img/ejemplo/gabriel-boric-2-925x470.jpg' %}"
+                        class="img-fluid shadow-1-strong rounded"
+                        alt="Hollywood Sign on The Hill"
+                      />
+                    </div>
+
+                    <div class="col-9">
+                      <p class="mb-2">
+                        <strong>Lorem ipsum dolor sit amet</strong>
+                      </p>
+                      <p>
+                        <u> 30.03.2023</u>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- News -->
+                <a href="plantilla_noticias_fotos_carrusel.html" class="text-dark">
+                  <div class="row mb-4 border-bottom pb-2">
+                    <div class="col-3">
+                      <img
+                        src="{% static 'img/ejemplo/Parlamentarios-1.jpg' %}"
+                        class="img-fluid shadow-1-strong rounded"
+                        alt=""
+                      />
+                    </div>
+
+                    <div class="col-9">
+                      <p class="mb-2">
+                        <strong>Lorem ipsum dolor sit amet</strong>
+                      </p>
+                      <p>
+                        <u> 30.03.2023</u>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- News -->
+                <a href="plantilla_noticias_video.html" class="text-dark">
+                  <div class="row mb-4 border-bottom pb-2">
+                    <div class="col-3">
+                      <img
+                        src="{% static 'img/ejemplo/carabinero-1280x720.jpg' %}"
+                        class="img-fluid shadow-1-strong rounded"
+                        alt=""
+                      />
+                    </div>
+
+                    <div class="col-9">
+                      <p class="mb-2">
+                        <strong>Lorem ipsum dolor sit amet</strong>
+                      </p>
+                      <p>
+                        <u> 30.03.2023</u>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- News -->
+                <a href="plantilla_noticias_fotos_carrusel.html" class="text-dark">
+                  <div class="row mb-4 border-bottom pb-2">
+                    <div class="col-3">
+                      <img
+                        src="{% static 'img/ejemplo/cortesuprema.jpg' %}"
+                        class="img-fluid shadow-1-strong rounded"
+                        alt=""
+                      />
+                    </div>
+
+                    <div class="col-9">
+                      <p class="mb-2">
+                        <strong>Lorem ipsum dolor sit amet</strong>
+                      </p>
+                      <p>
+                        <u> 30.03.2023</u>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <!-- News block -->
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+              <!-- News block -->
+              <div>
+                <!-- Imagen Destacada -->
+                <div
+                  class="bg-image hover-overlay shadow-1-strong rounded-5 ripple mb-4"
+                  data-mdb-ripple-color="light"
+                >
+                  <img
+                    src="{% static 'img/ejemplo/LasCondes.png' %}"
+                    class="img-fluid"
+                    alt="Brooklyn Bridge"
+                  />
+                  <a href="plantilla_noticias_fotos_carrusel.html">
+                    <div
+                      class="mask"
+                      style="background-color: rgba(251, 251, 251, 0.15)"
+                    ></div>
+                  </a>
+                </div>
+
+                <!-- Articulo Data -->
+                <div class="row mb-3">
+                  <div class="col-6">
+                    <a href="Economia.html" class="text-danger">
+                      <i class="fas fa-chart-pie"></i>
+                      Economia
+                    </a>
+                  </div>
+
+                  <div class="col-6 text-end">
+                    <u> 30.03.2023</u>
+                  </div>
+                </div>
+
+                <!-- Titulo del articulo y descripcion -->
+                <a href="plantilla_noticias_fotos.html" class="text-dark">
+                  <h5>Lorem ipsum dolor sit amet consectetur adipisicing.</h5>
+
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Odit, iste aliquid. Sed id nihil magni, sint vero provident
+                    esse numquam perferendis ducimus dicta adipisci iusto nam
+                    temporibus modi animi laboriosam?
+                  </p>
+                </a>
+
+                <hr />
+
+                <!-- News -->
+                <a href="plantilla_noticias_fotos_carrusel.html" class="text-dark">
+                  <div class="row mb-4 border-bottom pb-2">
+                    <div class="col-3">
+                      <img
+                        src="{% static 'img/ejemplo/Plaza_de_Armas.jpg' %}"
+                        class="img-fluid shadow-1-strong rounded"
+                        alt=""
+                      />
+                    </div>
+
+                    <div class="col-9">
+                      <p class="mb-2">
+                        <strong>Lorem ipsum dolor sit amet</strong>
+                      </p>
+                      <p>
+                        <u> 30.03.2023</u>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- Noticias De Contigencia -->
+                <a href="plantilla_noticias_fotos_carrusel.html" class="text-dark">
+                  <div class="row mb-4 border-bottom pb-2">
+                    <div class="col-3">
+                      <img
+                        src="{% static 'img/ejemplo/descargar.png' %}"
+                        class="img-fluid shadow-1-strong rounded"
+                        alt=""
+                      />
+                    </div>
+
+                    <div class="col-9">
+                      <p class="mb-2">
+                        <strong>Lorem ipsum dolor sit amet</strong>
+                      </p>
+                      <p>
+                        <u> 30.03.2023</u>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- News -->
+                <a href="plantilla_noticias_fotos.html" class="text-dark">
+                  <div class="row mb-4 border-bottom pb-2">
+                    <div class="col-3">
+                      <img
+                        src="https://mdbcdn.b-cdn.net/img/new/standard/city/033.webp"
+                        class="img-fluid shadow-1-strong rounded"
+                        alt=""
+                      />
+                    </div>
+
+                    <div class="col-9">
+                      <p class="mb-2">
+                        <strong>Lorem ipsum dolor sit amet</strong>
+                      </p>
+                      <p>
+                        <u> 30.03.2023</u>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- News -->
+                <a href="plantilla_noticias_video.html" class="text-dark">
+                  <div class="row mb-4 border-bottom pb-2">
+                    <div class="col-3">
+                      <img
+                        src="https://mdbcdn.b-cdn.net/img/new/standard/city/034.webp"
+                        class="img-fluid shadow-1-strong rounded"
+                        alt="Times Square"
+                      />
+                    </div>
+
+                    <div class="col-9">
+                      <p class="mb-2">
+                        <strong>Lorem ipsum dolor sit amet</strong>
+                      </p>
+                      <p>
+                        <u> 30.03.2023</u>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <!-- News block -->
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+              <!-- News block -->
+              <div>
+                <!-- Featured image -->
+                <div
+                  class="bg-image hover-overlay shadow-1-strong rounded-5 ripple mb-4"
+                  data-mdb-ripple-color="light"
+                >
+                  <img
+                    src="{% static 'img/ejemplo/situacion-en-chile_2020.09.22.png' %}"
+                    class="img-fluid"
+                    alt="Golden Gate National Recreation Area"
+                  />
+                  <a href="plantilla_noticias_fotos.html">
+                    <div
+                      class="mask"
+                      style="background-color: rgba(251, 251, 251, 0.15)"
+                    ></div>
+                  </a>
+                </div>
+
+                <!-- Article data -->
+                <div class="row mb-3">
+                  <div class="col-6">
+                    <a href="Salud.html" class="text-warning">
+                      <i class="fas fa-code"></i>
+                      Salud
+                    </a>
+                  </div>
+
+                  <div class="col-6 text-end">
+                    <u> 30.03.2023</u>
+                  </div>
+                </div>
+
+                <!-- Article title and description -->
+                <a href="plantilla_noticias_video.html" class="text-dark">
+                  <h5>Lorem ipsum dolor sit amet consectetur.</h5>
+
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Odit, iste aliquid. Sed id nihil magni, sint vero provident
+                    esse numquam perferendis ducimus dicta adipisci iusto nam
+                    temporibus modi animi laboriosam?
+                  </p>
+                </a>
+
+                <hr />
+
+                <!-- Noticias Deporte -->
+                <a href="plantilla_noticias_fotos.html" class="text-dark">
+                  <div class="row mb-4 border-bottom pb-2">
+                    <div class="col-3">
+                      <img
+                        src="{% static 'img/ejemplo/fc681e17ec57ba5c6c51138105f445070a464dc6.png' %}"
+                        class="img-fluid shadow-1-strong rounded"
+                        alt=""
+                      />
+                    </div>
+
+                    <div class="col-9">
+                      <p class="mb-2">
+                        <strong>Lorem ipsum dolor sit amet</strong>
+                      </p>
+                      <p>
+                        <u> 30.03.2023</u>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- News -->
+                <a href="plantilla_noticias_fotos.html" class="text-dark">
+                  <div class="row mb-4 border-bottom pb-2">
+                    <div class="col-3">
+                      <img
+                        src="{% static 'img/ejemplo/plantel_colocolo-gas00266_crop1680022349279.jpg_242310155.jpg' %}"
+                        class="img-fluid shadow-1-strong rounded"
+                        alt=""
+                      />
+                    </div>
+
+                    <div class="col-9">
+                      <p class="mb-2">
+                        <strong>Lorem ipsum dolor sit amet</strong>
+                      </p>
+                      <p>
+                        <u> 30.03.2023</u>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- News -->
+                <a href="plantilla_noticias_video.html" class="text-dark">
+                  <div class="row mb-4 border-bottom pb-2">
+                    <div class="col-3">
+                      <img
+                        src="{% static 'img/ejemplo/chile.jpg_1624932088.jpg' %}"
+                        class="img-fluid shadow-1-strong rounded"
+                        alt=""
+                      />
+                    </div>
+
+                    <div class="col-9">
+                      <p class="mb-2">
+                        <strong>Lorem ipsum dolor sit amet</strong>
+                      </p>
+                      <p>
+                        <u> 30.03.2023</u>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- News -->
+                <a href="plantilla_noticias_fotos_carrusel.html" class="text-dark">
+                  <div class="row mb-4 border-bottom pb-2">
+                    <div class="col-3">
+                      <img
+                        src="{% static 'img/ejemplo/r1149209_1296x518_5-2.jpg' %}"
+                        class="img-fluid shadow-1-strong rounded"
+                        alt=""
+                      />
+                    </div>
+
+                    <div class="col-9">
+                      <p class="mb-2">
+                        <strong>Lorem ipsum dolor sit amet</strong>
+                      </p>
+                      <p>
+                        <u> 30.03.2023</u>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <!-- News block -->
+            </div>
+          </div>
+        </section>
+        <!--Section: Content-->
+
+        <!-- Numeros -->
+        <nav class="my-4" aria-label="...">
+          <ul class="pagination pagination-circle justify-content-center">
+            <li class="page-item">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
+                >Atras</a
+              >
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item" aria-current="page">
+              <a class="page-link" href="#">2 <span class="sr-only"></span></a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Siguiente</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </main>
+    <!---FOOOTER-->
+    <footer class="bg-light text-center text-lg-start">
+      <!-- Grid container -->
+      <div class="container p-4">
+        <!--Grid row-->
+        <div class="row">
+          <!--Grid column-->
+          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase"></h5>
+            <img src="{% static 'img/LogoCaosNews.png' %}"  width="90" height="90" class="d-inline-block align-left" alt="">
+            <ul class="list-unstyled mb-0">
+              
+            </ul>
+          </div>
+          <!--Grid column-->
+    
+          <!--Grid column-->
+          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase mb-0"></h5>
+    
+            <ul class="list-unstyled">
+              <li>
+                <a href="internacional.html" class="text-dark">Internacional</a>
+              </li>
+              <li>
+                <a href="Economia.html" class="text-dark">Economia</a>
+              </li>
+              <li>
+                <a href="Salud.html" class="text-dark">Salud</a>
+              </li>
+              <li>
+                <a href="Reportaje.html" class="text-dark">Reportaje</a>
+              </li>
+            </ul>
+          </div>
+          <!--Grid column-->
+    
+          <!--Grid column-->
+          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+    
+            <ul class="list-unstyled mb-0">
+              <li>
+                <a href="Politica.html" class="text-dark">Politica</a>
+              </li>
+              <li>
+                <a href="Deportes.html" class="text-dark">Deportes</a>
+              </li>
+              <li>
+                <a href="contacto.html" class="text-dark">Contacto</a>
+              </li>
+            </ul>
+          </div>
+          <!--Grid column-->
+    
+          <!--Grid column-->
+          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase mb-0"></h5>
+    
+            <ul class="list-unstyled">
+
+            </ul>
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </div>
+      <!-- Grid container -->
+    
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2023 Copyright:
+        <a class="text-dark" href="index.html">Caos News</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- SCRIPT BOOTSTRAP -->
+    <script src="{%static 'js/bootstrap.bundle.min.js' %}"></script>
+    
+  </body>
+</html>
