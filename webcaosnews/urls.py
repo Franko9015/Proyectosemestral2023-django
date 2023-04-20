@@ -33,4 +33,7 @@ urlpatterns = [
     path('Login/',login,name='LOG'),
     path('Registro/',registro,name='REG'),
     path('Contacto/',contacto,name='CON'),
+    path('NoticiaEjemplo1/',noticia1,name='NON1'),
+    path('NoticiaEjemplo2/',noticia2,name='NON2'),
+    path('NoticiaEjemplo3/',noticia3,name='NON3'),
 ]

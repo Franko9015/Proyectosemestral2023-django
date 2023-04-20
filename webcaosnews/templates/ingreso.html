@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=, initial-scale=1.0" />
     <title>Caos News</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/LogoCaosNews.png' %}"/>
     <!-- LINK BOOTSTRAP -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/fontello.css' %}" />
@@ -171,7 +172,7 @@
                           <button type="reset" class="btn btn-danger btn-block mb-4"> Limpiar</button>
                           <!-- Register buttons -->
                           <div class="text-center">
-                            <p>No estás registrado? <a href="registro.html">Regístrese aquí</a></p>
+                            <p>No estás registrado? <a href="{%url 'REG' %}">Regístrese aquí</a></p>
                           </div>
                       </form>
                     </div>            
