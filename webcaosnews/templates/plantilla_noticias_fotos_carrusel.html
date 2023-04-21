@@ -14,13 +14,13 @@
               <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                    <img src="img/ejemplo/cortesuprema.jpg" class="d-block w-100" alt="...">
+                    <img src="{% static 'img/ejemplo/cortesuprema.jpg' %}" class="img-thumbnail d-block w-100" alt="Nabed Khan">
                   </div>
                   <div class="carousel-item">
-                    <img src="img/ejemplo/Politica3.jpg" class="d-block w-100" alt="...">
+                    <img src="{% static 'img/ejemplo/Politica3.jpg' %}" class="img-thumbnail d-block w-100" alt="Nabed Khan">
                   </div>
                   <div class="carousel-item">
-                    <img src="img/ejemplo/Plaza_de_Armas.jpg" class="d-block w-100" alt="...">
+                    <img src="{% static 'img/ejemplo/Plaza_de_Armas.jpg' %}" class="img-thumbnail d-block w-100" alt="Nabed Khan">
                   </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -163,3 +163,6 @@
           </div>
         </div>
         {% endblock contenedor %}
+        {% block js %}
+        <script src="{%static 'js/jquery-3.6.4.min.js' %}"></script>
+        {% endblock js %}
