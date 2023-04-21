@@ -14,6 +14,7 @@ from .views import noticia3
 from .views import login
 from .views import registro
 from .views import contacto
+from .views import indexusuario
 
 #Ejemplo
 #path('',index,name='IND'),
@@ -36,4 +37,5 @@ urlpatterns = [
     path('NoticiaEjemplo1/',noticia1,name='NON1'),
     path('NoticiaEjemplo2/',noticia2,name='NON2'),
     path('NoticiaEjemplo3/',noticia3,name='NON3'),
+    path('Usuario/',indexusuario,name='USU1')
 ]

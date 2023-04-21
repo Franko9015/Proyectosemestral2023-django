@@ -16,7 +16,7 @@ def deportes(request):
 def salud(request):
     return render(request, "Salud.html")
 def noticia1(request):
-    return render(request, "plantilla_noticias_carrusel.html")
+    return render(request, "plantilla_noticias_fotos_carrusel.html")
 def noticia2(request):
     return render(request, "plantilla_noticias_video.html")
 def noticia3(request):
@@ -27,3 +27,5 @@ def registro(request):
     return render(request, "registro.html")
 def contacto(request):
     return render(request, "contacto.html")
+def indexusuario(request):
+    return render(request,"index_usuario.html")
