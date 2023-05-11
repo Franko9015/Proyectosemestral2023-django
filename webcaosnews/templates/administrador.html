@@ -1,172 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=, initial-scale=1.0" />
-    <title>Caos News</title>
-    <!-- LINK BOOTSTRAP -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/fontello.css" />
-    <link rel="stylesheet" href="css/btnIngresar.css" />
-    <link rel="stylesheet" href="css/estilos.css">
-  </head>
-  <body>
-    <!-- BARRA DE NAVEGACION -->
-    <header>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index_usuario.html">
-            <img src="img/LogoCaosNews.png"  width="64" height="64" class="d-inline-block align-left" alt="">
-            Caos News
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index_usuario.html"
-                  >Principal</a
-                >
-              </li>
+{% extends 'base5.html' %}
+{% load static %}
 
-              <li class="nav-item">
-                <a class="nav-link" href="internacional.html">Internacional</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="Economia.html">Economia</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="Salud.html">Salud</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="Deportes.html">Deporte</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="Politica.html">Politica</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="Reportaje.html">Reportajes</a>
-              </li>
-
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="..."
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  >Contacto</a
-                >
-                <ul class="dropdown-menu">
-                  <li>
-                    <a
-                      class="dropdown-item icon-facebook-squared"
-                      href="https://www.facebook.com/"
-                      target="_blank"
-                      >Facebook</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="dropdown-item icon-instagram"
-                      href="https://www.instagram.com/"
-                      target="_blank"
-                      >Instagram</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="dropdown-item icon-twitter"
-                      href="https://twitter.com/?lang=es"
-                      target="_blank"
-                      >Twitter</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="dropdown-item icon-whatsapp"
-                      href="https://web.whatsapp.com/"
-                      target="_blank"
-                      >Whatsapp</a
-                    >
-                  </li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li>
-                    <a class="dropdown-item icon-comment" href="contacto.html"
-                      >Mensaje</a
-                    >
-                  </li>
-                </ul>
-              </li>
-            </ul>
-
-            <form class="d-flex" role="search" >
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Buscar"
-                aria-label="Search"
-              />
-              <button
-                class="btn btn-outline-success icon-scearch btn-margen-derecha"
-                type="submit"
-              >
-                Buscar
-              </button>
-
-              <!---USUARIO-->
-              <div class="dropdown dropdown-edit">
-                <span class="visually-hidden">Perfil</span>
-                <a
-                  class="btn btn-outline-success"
-                  href="..."
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="30"
-                    height="30"
-                    fill="currentColor"
-                    class="bi bi-person-circle"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
-                    <path
-                      fill-rule="evenodd"
-                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-                    ></path>
-                  </svg>
-                </a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item active" href="administrador.html" target="_blank">Administrador</a>
-                  <a class="dropdown-item" href="agregar_noticias.html" target="_blank">Agregar Noticia</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="btn btn-rojo-edit" href="index.html" >Abandonar</a
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </nav>
-    </header>
+{% block contenedor %}
 
     <!--Seccion donde llenar (Noticias o Administrador)-->
     <main>
@@ -190,12 +25,13 @@
           </thead>
           <!-- cuerpo -->
           <tbody>
+            {% for noticia in noticias %}
             <tr>
-              <td>Probando Nombres</td>
-              <td>000001</td>
+              <td>{{ noticia.usuario }}</td>
+              <td>{{noticia.idNoticia}}</td>
               <td>
                 <a 
-                  href="plantilla_noticias_fotos_carrusel.html" 
+                   href="{% url 'NON3' item.idNoticia %}"
                   class="btn btn-margen-derecha btn-outline-success btn-centrar-tabla" >Ver Noticia
                 </a>
               </td>
@@ -215,68 +51,18 @@
                 <button class="btn btn-margen-derecha btn-outline-success btn-centrar-tabla">Enviar</button>
               </td>
             </tr>
-            <tr>
-              <td>Feliz Prueba</td>
-              <td>000002</td>
-              <td>
-                <button 
-                  type="button"
-                  class="btn btn-margen-derecha btn-outline-success btn-centrar-tabla" 
-                  onclick="location.href='plantilla_noticias_fotos.html'"
-                  >Ver Noticia</button>
-              </td>
-              <td>
-                <input type="radio" class="btn-check" name="options-outlined-1" id="success-outlined-1" autocomplete="off" >
-                <label class="btn btn-outline-success" for="success-outlined-1">Aprobado</label>
-
-                <input type="radio" class="btn-check" name="options-outlined-1" id="danger-outlined-1" autocomplete="off">
-                <label class="btn btn-outline-danger" for="danger-outlined-1">Rechazado</label>
-              </td>
-              <td>
-                <div class="form-group">
-                  <textarea placeholder="Observaciones o Motivos" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-              </td>
-              <td>
-                <button disable id="btnenviar" class="btn btn-margen-derecha btn-outline-success btn-centrar-tabla">Enviar</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Juanito Perez</td>
-              <td>000003</td>
-              <td>
-                <button 
-                  type="button" 
-                  onclick="location.href='plantilla_noticias_video.html'"
-                  class="btn btn-margen-derecha btn-outline-success btn-centrar-tabla"
-                >Ver Noticia</button></td>
-              <td>
-                <input type="radio" class="btn-check" name="options-outlined-2" id="success-outlined-2" autocomplete="off" >
-                <label class="btn btn-outline-success" for="success-outlined-2">Aprobado</label>
-
-                <input type="radio" class="btn-check" name="options-outlined-2" id="danger-outlined-2" autocomplete="off">
-                <label class="btn btn-outline-danger" for="danger-outlined-2">Rechazado</label>
-              </td>
-              <td>
-                <div class="form-group">
-                  <textarea placeholder="Observaciones o Motivos" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-              </td>
-              <td>
-                <button disable id="btnenviar" class="btn btn-margen-derecha btn-outline-success btn-centrar-tabla">Enviar</button>
-              </td>
-            </tr>
+            {% endfor %}
           </tbody>
         </table>
       </form>
-
+    </main>
+{% endblock %}
 
 
     </main>
-
-    <!---FOOOTER-->
-    <footer></footer>
-    <!-- SCRIPT BOOTSTRAP -->
+    {% block js %}
     <script src="js/bootstrap.bundle.min.js"></script>
+    {% endblock js %}
+    <!-- SCRIPT BOOTSTRAP -->
   </body>
 </html>

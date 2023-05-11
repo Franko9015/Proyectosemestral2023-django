@@ -1,20 +1,8 @@
 
 from django.contrib import admin
 from django.urls import path
-from .views import index
-from .views import economia
-from .views import internacional 
-from .views import politica
-from .views import reportaje
-from .views import deportes
-from .views import salud
-from .views import noticia1
-from .views import noticia2
-from .views import noticia3
-from .views import login
-from .views import registro
-from .views import contacto
-from .views import indexusuario
+from .views import *    
+
 
 #Ejemplo
 #path('',index,name='IND'),
@@ -34,8 +22,8 @@ urlpatterns = [
     path('Login/',login,name='LOG'),
     path('Registro/',registro,name='REG'),
     path('Contacto/',contacto,name='CON'),
-    path('NoticiaEjemplo1/',noticia1,name='NON1'),
-    path('NoticiaEjemplo2/',noticia2,name='NON2'),
-    path('NoticiaEjemplo3/',noticia3,name='NON3'),
-    path('Usuario/',indexusuario,name='USU1')
+    path('Noticia/<id>/',noticia3,name='NON'), # Foto Unica
+    path('Usuario/',indexusuario,name='USU1'),
+    path('AgregarNoticia/',ingresarnoticia,name='AGRNON'),
+    path('AdministradorNoticia/',adminnoticia,name='ADMNON')
 ]
