@@ -25,5 +25,6 @@ urlpatterns = [
     path('Noticia/<id>/',noticia3,name='NON'), # Foto Unica
     path('Usuario/',indexusuario,name='USU1'),
     path('AgregarNoticia/',ingresarnoticia,name='AGRNON'),
-    path('AdministradorNoticia/',adminnoticia,name='ADMNON')
+    path('AdministradorNoticia/',adminnoticia,name='ADMNON'),
+    path('buscar/',buscar_noticias,name='BUSCAR'),
 ]

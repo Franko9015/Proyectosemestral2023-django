@@ -1,0 +1,68 @@
+{% extends 'base1.html' %}
+{%load static%}
+
+{% block contenedor %}
+ <!--Titulo-->
+<p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Resultados de búsqueda para "{{ query }}"</p>
+
+<!--Section: Contenido-->
+<section>
+  <div class="row gx-lg-5">
+    {% if noticias %}
+      {% for item in noticias %}
+        <div class="col col-md-4 mb-4 mb-lg-0">
+          <!-- News block -->
+          <div>
+            <!-- Featured image -->
+            <div class="bg-image hover-overlay shadow-1-strong ripple rounded-5 mb-4" data-mdb-ripple-color="light">
+              {% if item.miniatura %}
+                <img src="{{ item.miniatura.url }}" class="img-fluid" />
+              {% endif %}
+
+              <a href="{% url 'NON' item.idNoticia %}">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+              </a>
+            </div>
+
+            <!-- Article data -->
+            <div class="row mb-3">
+              <div class="col-6">
+                <a href="internacional.html" class="text-info">
+                  <i class="fas fa-plane"></i>
+                  {{ item.Categorias.nombre }}
+                </a>
+              </div>
+
+              <div class="col-6 text-end">
+                <u>{{ item.fecha_publicacion|date:""}}</u>
+              </div>                  
+            </div>
+
+            <!-- Article title and description -->
+            <a href="{% url 'NON' item.idNoticia %}" class="text-dark">
+              <h5>{{ item.Titulo }}</h5>
+
+              <p>
+                {% if item.Descripcion|length > 140 %}
+                  {{ item.Descripcion|slice:":140" }}...
+                {% else %}
+                  {{ item.Descripcion }}
+                {% endif %}
+              </p>
+            </a>
+
+            <hr />
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="text-center">No se encontraron noticias con los criterios de búsqueda seleccionados.</p>
+    {% endif %}
+  </div>
+</section>
+        <!--Section: Content-->
+{% endblock contenedor %}
+
+{% block pagination %}
+    {{ block.super }}
+{% endblock %}

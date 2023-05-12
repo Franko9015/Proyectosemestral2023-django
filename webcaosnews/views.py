@@ -4,7 +4,9 @@ from datetime import datetime
 from .models import *
 import random
 from django.http import JsonResponse
-from django.views.decorators.http import require_POST      
+from django.views.decorators.http import require_POST
+from django.db.models import Q
+
 
 # Create your views here.
 def index(request):
@@ -104,8 +106,22 @@ def ingresarnoticia(request):
 
     return render(request, "agregar_noticias.html", data)
 
+def buscar_noticias(request):
+    # Obtener el término de búsqueda del formulario
+    query = request.POST.get('query')
 
+    # Realizar la búsqueda utilizando los filtros de Django
+    if query:
+        noticias = Noticia.objects.filter(
+            Q(usuario__username__icontains=query) |
+            Q(Titulo__icontains=query) |
+            Q(Categorias__nombre__icontains=query)
+        )
+    else:
+        noticias = Noticia.objects.all()
 
+    # Renderizar la plantilla con las noticias encontradas y los parámetros de búsqueda
+    return render(request, 'resultado_busqueda.html', {'noticias': noticias, 'query': query})
 
 
 
