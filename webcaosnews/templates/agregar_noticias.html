@@ -38,7 +38,9 @@
                               <input
                               required
                               type="number"
-                              id="txtid"
+                              id="txtid" 
+                              name="txtid"
+                              onblur="verificar_id_noticia()"
                               class="form-control"
                             />
                             
@@ -97,7 +99,8 @@
                               
                               <div class="form-outline flex-fill mb-0">
 
-  
+                                <label class="form-label" for="form3Example3c"
+                                >Ubicacion (Ejemplo:  Santiago, Chile) </label>
                                   <input
                                   required
                                   type="text"
@@ -109,18 +112,29 @@
                               </div>
                             </div>
                             <!-- AGREGAR ARCHIVOS -->
+                            <label class="form-label" >Elije que subir (Foto O Video)</label>
+                            <br>
                             <section id="multi-selector-uniq" class="mb-3">
-                              <label class="form-label" for="archivo">Imagenes O Videos (Videos solo en MP4)</label>
-                              <div class="input-group">
-                                  <input type="file" class="form-control" id="archivo" name="archivo" accept="image/*, video/*" multiple>
+                              <div class="form-group">
+                                <label class="form-label" for="txtfotos">Fotos</label>
+                                <div class="col">
+                                  <input type="file" class="form-control" id="txtfotos" name="txtfotos" accept="image/*" multiple>
+                                </div>
+                                <br>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label" for="txtvideos">Videos (Se recomienda MP4)</label>
+                                <div class="col">
+                                  <input type="file" class="form-control" id="txtvideos" name="txtvideos" accept="video/*" >
+                                </div>
                               </div>
                               <ul id="preview"></ul>
-                          </section>
+                            </section>                            
                             <br>  
                             <section id="multi-selector-uniq">
-                              <div class="mb-3">
-                                <label class="form-label" for="archivo">Miniatura de la Noticia (Solo Imagenes) </label>
-                                <input class="form-control" name="Miniatura" id="archivo" type="file" accept="image/*">
+                              <div class="mb-">
+                                <label class="form-label" for="miniatura">Miniatura de la Noticia (Solo Imagenes) </label>
+                                <input required class="form-control" name="txtminiatura" id="txtminiatura" type="file" accept="image/*">
                               </div>
                               <ul id="preview"></ul>
                             </section>                            
@@ -158,6 +172,8 @@
     <script src="js/script-archivos.js"></script>
     <script src="js/tinymce/tinymce.min.js" referrerpolicy="origin"></script> 
     <script>tinymce.init({selector:'textarea'});</script>
+    <script src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {% endblock js %}
 
     

@@ -95,4 +95,37 @@ return true;
     return true;
   }
 
+  function verificar_id_noticia() {
+    // Obtener el valor del campo de entrada de ID de noticia
+    var idNoticia = $('#txtid').val();
+
+    // Realizar la solicitud AJAX
+    $.ajax({
+        url: '/ingresarnoticia/',
+        data: {
+            'idNoticia': idNoticia
+        },
+        dataType: 'json',
+        success: function (data) {
+            // La ID de la noticia está disponible
+            if (data.disponible) {
+                // Agregar tu código aquí para manejar la ID de la noticia disponible
+            } else {
+                // La ID de la noticia no está disponible
+                // Agregar tu código aquí para manejar la ID de la noticia no disponible
+                // Por ejemplo, mostrar un mensaje de error utilizando SweetAlert
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'La ID De la Noticia ya esta siendo Usada'
+                }).then(function () {
+                    // En caso de que el usuario haga clic en el botón de "Aceptar" del mensaje de error
+                    // aquí podrías agregar el código para redirigir al usuario a otra página, o hacer cualquier otra cosa
+                });
+            }
+        }
+    });
+}
+
+
 
