@@ -77,8 +77,8 @@
       <div class="col-md-6 mb-4">
         <div class="bg-image hover-overlay ripple shadow-2-strong rounded-5"
           data-mdb-ripple-color="light">
-          <img src="{{ item.foto.url }}" class="img-fluid" />
-          <a href="{%url 'NON3' item.idNoticia %}">
+          <img src="{{ item.miniatura.url }}" class="img-fluid" />
+          <a href="{%url 'NON' item.idNoticia %}">
             <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
           </a>
         </div>
@@ -88,7 +88,7 @@
         <span class="badge bg-danger px-2 py-1 shadow-1-strong mb-3">NOTICIA DEL DÍA!</span>
         <h4><strong>{{ item.Titulo }}</strong></h4>
         <p class="text-muted">{{ item.Descripcion }}</p>
-        <a href="{%url 'NON3' item.idNoticia %}" type="button" class="btn btn-primary">Leer Más</a>
+        <a href="{%url 'NON' item.idNoticia %}" type="button" class="btn btn-primary">Leer Más</a>
       </div>
     </div>
     {% endif %}
@@ -108,7 +108,7 @@
                 <div class="bg-image hover-overlay shadow-1-strong ripple rounded-5 mb-4"
                   data-mdb-ripple-color="light">
                   <img src="{{ item.miniatura.url }}" class="img-fluid" />
-                  <a href="{%url 'NON3' item.idNoticia %}">
+                  <a href="{%url 'NON' item.idNoticia %}">
                     <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
                   </a>
                 </div>
@@ -128,7 +128,7 @@
                 </div>
       
                 <!-- Article title and description -->
-                <a href="{%url 'NON3' item.idNoticia %}" class="text-dark">
+                <a href="{%url 'NON' item.idNoticia %}" class="text-dark">
                   <h5>{{ item.Titulo }}</h5>
       
                   <p>
@@ -146,3 +146,7 @@
         
         <!--Section: Content-->
 {% endblock contenedor %}
+
+{% block pagination %}
+    {{ block.super }}
+{% endblock %}

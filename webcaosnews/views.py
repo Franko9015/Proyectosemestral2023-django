@@ -97,7 +97,25 @@ def registro(request):
 def contacto(request):
     return render(request, "contacto.html")
 def indexusuario(request):
-    return render(request,"index_usuario.html")
+    noticias = Noticia.objects.filter(publicado=True)
+    paginator = Paginator(noticias, 7)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    noticias_destacadas = []
+    if noticias.exists():
+        noticias_destacadas = random.sample(list(noticias), min(3, len(noticias)))
+
+    for noticia in noticias:
+        noticia.Descripcion = noticia.Descripcion[:140] + "..."
+    
+    data = {
+        'noticia': page_obj,
+        'noticia_destacada': noticias_destacadas,
+        'numeros_pagina': range(1, paginator.num_pages + 1),
+    }
+    
+    return render(request,"index_usuario.html",data)
 
 def ingresarnoticia(request):
     cate = Categorias.objects.all()
