@@ -160,6 +160,8 @@ def buscar_noticias(request):
     if query:
         noticias = Noticia.objects.filter(
             Q(usuario__username__icontains=query) |
+            Q(usuario__first_name__icontains=query) |
+            Q(usuario__last_name__icontains=query) |
             Q(Titulo__icontains=query) |
             Q(Categorias__nombre__icontains=query)
         )

@@ -1,4 +1,4 @@
-{% extends 'base3.html' %}
+{% extends 'base1.html' %}
 {%load static%}
 
 {% block contenedor %}
@@ -39,7 +39,13 @@
               <img src="{{ item.miniatura.url }}" class="d-block w-100" alt="{{ item.Titulo }}">
               <div class="carousel-caption d-none d-md-block">
                 <h5>{{ item.Titulo }}</h5>
-                <p>{{ item.Descripcion }}</p>
+                <p>                        
+                  {% if item.Descripcion|length > 140 %}
+                  {{ item.Descripcion|slice:":140" }}...
+                {% else %}
+                  {{ item.Descripcion }}
+                {% endif %}
+              </p>
               </div>
             </a>
           </div>
@@ -87,7 +93,12 @@
       <div class="col-md-6 mb-4">
         <span class="badge bg-danger px-2 py-1 shadow-1-strong mb-3">NOTICIA DEL DÍA!</span>
         <h4><strong>{{ item.Titulo }}</strong></h4>
-        <p class="text-muted">{{ item.Descripcion }}</p>
+        <p class="text-muted">                        
+          {% if item.Descripcion|length > 140 %}
+          {{ item.Descripcion|slice:":140" }}...
+        {% else %}
+          {{ item.Descripcion }}
+        {% endif %}</p>
         <a href="{%url 'NON' item.idNoticia %}" type="button" class="btn btn-primary">Leer Más</a>
       </div>
     </div>
@@ -132,7 +143,11 @@
                   <h5>{{ item.Titulo }}</h5>
       
                   <p>
+                    {% if item.Descripcion|length > 140 %}
+                    {{ item.Descripcion|slice:":140" }}...
+                  {% else %}
                     {{ item.Descripcion }}
+                  {% endif %}
                   </p>
                 </a>
       
