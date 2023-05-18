@@ -1,7 +1,8 @@
 
 from django.contrib import admin
 from django.urls import path
-from .views import *    
+from .views import * 
+ 
 
 
 #Ejemplo
@@ -27,4 +28,5 @@ urlpatterns = [
     path('AgregarNoticia/',ingresarnoticia,name='AGRNON'),
     path('AdministradorNoticia/',adminnoticia,name='ADMNON'),
     path('buscar/',buscar_noticias,name='BUSCAR'),
+    path('logout/', logout, name='LOGOUT'),
 ]

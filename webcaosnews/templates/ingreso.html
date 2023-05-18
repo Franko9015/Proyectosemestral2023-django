@@ -11,16 +11,17 @@
                   <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                     <!---INICIO SECCION-->
                     <div class="d-flex justify-content-center">
-                      <form action="index_usuario.html" method="" onsubmit="return validaciones()">   
+                      <form action="{%url 'LOG' %}" method="POST" onsubmit="return validaciones()">
+                        {% csrf_token %}   
                         <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Iniciar Sesión</p>
                           <!-- Email input -->
                           <div class="form-outline mb-4">
-                            <input required type="email" id="Ejemplo1" class="form-control" />
-                            <label class="form-label" for="Ejemplo1">Correo</label>
+                            <input required type="text" id="Ejemplo1" name="ejemplo1" class="form-control" required />
+                            <label class="form-label" for="Ejemplo1">Usuario</label>
                           </div>
                           <!-- Password input -->
                           <div class="form-outline mb-4">
-                            <input required type="password" id="Ejemplo2" class="form-control" />
+                            <input required type="password" id="Ejemplo2" name="ejemplo2" class="form-control" required />
                             <label class="form-label" for="Ejemplo2">Contraseña</label>
                           </div>
                           <!-- 2 column grid layout for inline styling -->

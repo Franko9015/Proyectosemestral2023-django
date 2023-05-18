@@ -2,11 +2,13 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 from datetime import datetime
 from .models import *
-import random
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth import logout, login as login_aut, authenticate
+from django.contrib.auth import views as auth_views
+import random
 
 
 # Create your views here.
@@ -91,9 +93,43 @@ def noticia(request,id):
     return render(request,"noticia.html",data) #Foto Normal
 
 def login(request):
-    return render(request, "ingreso.html")
+    if request.method == 'POST':
+        usern = request.POST.get("ejemplo1")
+        cont = request.POST.get("ejemplo2")
+        usu = authenticate(request, username=usern, password=cont)
+        if usu is not None and usu.is_active:
+            login_aut(request, usu)
+            return redirect('IND')  # Redireccionar al index después de autenticarse correctamente
+        else:
+            mensaje = 'Usuario/contraseña inválida'
+            return render(request, "ingreso.html", {'mensaje': mensaje})
+    else:
+        return render(request, "ingreso.html")
+
+
+
 def registro(request):
-    return render(request, "registro.html")
+    data={'mensaje':''}
+    if request.method == 'POST':
+        nom= request.POST.get("Nombre")
+        usu= request.POST.get("Usuario")
+        ape= request.POST.get("Apellido")
+        cor= request.POST.get("Correo")
+        cont= request.POST.get("TxtPass1")
+        usuario=User()
+        usuario.first_name=nom
+        usuario.username=usu
+        usuario.last_name=ape
+        usuario.email=cor
+        usuario.set_password(cont)
+        try:
+            usuario.save()
+            data['mensaje']='Grabo Usuario'
+        except:
+           data['mensaje']='Error al grabar' 
+    return render(request, "registro.html",data)
+
+
 def contacto(request):
     return render(request, "contacto.html")
 def indexusuario(request):
@@ -199,3 +235,5 @@ def adminnoticia(request):
     context = {'noticias': noticias}
     return render(request, 'administrador.html', context)
 
+def logout(request):
+    return auth_views.LogoutView.as_view(next_page='IND')(request)
