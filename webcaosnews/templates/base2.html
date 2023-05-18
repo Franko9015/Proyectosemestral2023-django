@@ -115,19 +115,11 @@
               </li>
             </ul>
 
-            <form class="d-flex" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Buscar"
-                aria-label="Search"
-              />
-              <button
-                class="btn btn-outline-success icon-scearch btn-margen-derecha"
-                type="submit"
-              >
-                Buscar
-              </button>
+            <form action="{% url 'BUSCAR' %}" class="d-flex" role="search" method="post">
+              {% csrf_token %}
+              <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="query">
+              <button class="btn btn-outline-success icon-scearch btn-margen-derecha" type="submit">Buscar</button>
+            </form>
 
             </form>
           </div>

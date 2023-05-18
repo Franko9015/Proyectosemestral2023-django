@@ -28,7 +28,13 @@
       <div class="col-md-6 mb-4">
         <span class="badge bg-danger px-2 py-1 shadow-1-strong mb-3">NOTICIA DEL DÍA!</span>
         <h4><strong>{{ item.Titulo }}</strong></h4>
-        <p class="text-muted">{{ item.Descripcion }}</p>
+        <p class="text-muted"> 
+           {% if item.Descripcion|length > 140 %}
+          {{ item.Descripcion|slice:":140" }}...
+          {% else %}
+          {{ item.Descripcion }}
+           {% endif %}
+          </p>
         <a href="{%url 'NON' item.idNoticia %}" type="button" class="btn btn-primary">Leer Más</a>
       </div>
     </div>
@@ -67,7 +73,7 @@
                   </div>
       
                   <div class="col-6 text-end">
-                    <u>30 de marzo del 2023</u>
+                    <u>{{ item.fecha_publicacion|date:""}}</u>
                   </div>
                 </div>
       
@@ -75,9 +81,13 @@
                 <a href="{%url 'NON' item.idNoticia %}" class="text-dark">
                   <h5>{{ item.Titulo }}</h5>
       
-                  <p>
-                    {{ item.Descripcion }}
-                  </p>
+                  <p class="text-muted">
+                    {% if item.Descripcion|length > 140 %}
+                      {{ item.Descripcion|slice:":140" }}...
+                    {% else %}
+                      {{ item.Descripcion }}
+                    {% endif %}
+                  </p>                  
                 </a>
       
                 <hr />
