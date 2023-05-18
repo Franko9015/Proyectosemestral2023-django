@@ -4,12 +4,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class MultipleImageField(models.ImageField):
-    def formfield(self, **kwargs):
-        kwargs['widget'] = ClearableFileInput(attrs={'multiple': True})
-        return super().formfield(**kwargs)
-
-
 class Categorias(models.Model):
     nombre=models.CharField(primary_key=True,max_length=45)
     
@@ -23,7 +17,7 @@ class Noticia(models.Model):
         Titulo = models.CharField(max_length=200)
         Descripcion = models.TextField()
         Ubicacion = models.CharField(max_length=15, default='Desconocido')
-        Fotos = MultipleImageField(upload_to='foto', null=True, blank=True)
+        Fotos = models.ImageField(upload_to='foto', null=True, blank=True)
         miniatura= models.ImageField(upload_to='foto', null=True)
         video = models.FileField(upload_to='video', null=True, blank=True)
         Categorias = models.ForeignKey(Categorias, on_delete=models.CASCADE)
