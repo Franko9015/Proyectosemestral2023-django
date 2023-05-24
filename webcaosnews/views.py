@@ -51,6 +51,7 @@ def economia(request):
     data = {
         'noticias_economia': ultimas_noticias,
         'noticias': page_obj,
+        'numeros_pagina': range(1, paginator.num_pages + 1),
     }
 
     return render(request, "economia.html", data)
@@ -71,7 +72,7 @@ def internacional(request):
     for noticia in noticias:
         noticia.Descripcion = noticia.Descripcion[:200] + "..."
     
-    data = {'noticias': page_obj, 'noticia_destacada': noticias_destacadas}
+    data = {'noticias': page_obj, 'noticia_destacada': noticias_destacadas, 'numeros_pagina': range(1, paginator.num_pages + 1),}
     
     return render(request, "Internacional.html", data)
 
@@ -79,13 +80,72 @@ def internacional(request):
 
     
 def politica(request):
-    return render(request, "Politica.html")
+    categoria_politica = Categorias.objects.get(nombre='Politica')
+    noticias = Noticia.objects.filter(Q(publicado=True) & Q(Categorias=categoria_politica)).order_by('-fecha_publicacion')
+    ultimas_noticias = noticias[:6]
+
+    paginator = Paginator(noticias, 7)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    data = {
+        'noticias_politica': ultimas_noticias,
+        'noticias': page_obj,
+        'numeros_pagina': range(1, paginator.num_pages + 1),
+    }
+
+    return render(request, "Politica.html", data)
+
+
 def reportaje(request):
-    return render(request, "Reportaje.html")
+    categoria_reportajes = Categorias.objects.get(nombre='Reportaje')
+    noticias = Noticia.objects.filter(Q(publicado=True) & Q(Categorias=categoria_reportajes))
+    
+    paginator = Paginator(noticias, 7)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    noticias_destacadas = []
+    if noticias.exists():
+        noticias_destacadas = random.sample(list(noticias), min(3, len(noticias)))
+
+    for noticia in noticias:
+        noticia.Descripcion = noticia.Descripcion[:200] + "..."
+    
+    data = {'noticias': page_obj, 'noticia_destacada': noticias_destacadas, 'numeros_pagina': range(1, paginator.num_pages + 1),}
+    
+    return render(request, "Reportaje.html",data)
+
+
 def deportes(request):
-    return render(request, "Deportes.html")
+    categoria_deportes = Categorias.objects.get(nombre='Deporte')
+    noticias = Noticia.objects.filter(Q(publicado=True) & Q(Categorias=categoria_deportes)).order_by('-fecha_publicacion')
+    ultimas_noticias = noticias[:6]
+
+    paginator = Paginator(noticias, 7)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    data = {
+        'noticias_deportes': ultimas_noticias,
+        'noticias': page_obj,
+        'numeros_pagina': range(1, paginator.num_pages + 1),
+    }
+    return render(request, "Deportes.html",data)
+
 def salud(request):
-    return render(request, "Salud.html")
+    categoria_salud = Categorias.objects.get(nombre='Salud')
+    noticias = Noticia.objects.filter(Q(publicado=True) & Q(Categorias=categoria_salud))
+    
+    paginator = Paginator(noticias, 7)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+
+    data = {'noticias': page_obj,
+    'noticias_salud': noticias,
+    'numeros_pagina': range(1, paginator.num_pages + 1) }
+    return render(request, "Salud.html",data)
 
 def noticia(request,id):
     non= Noticia.objects.get(idNoticia=id)
