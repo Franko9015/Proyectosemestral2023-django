@@ -1,0 +1,112 @@
+{% extends 'base5.html' %}
+{% block css %}
+
+<script src="js/script.js"></script>
+{% endblock css %}
+{% block contenedor %}
+  <!-- registro -->
+  <section class="vh-100" style="background-color: #ffffff">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-12 col-xl-11">
+          <div class="card text-black" style="border-radius: 25px">
+            <div class="card-body p-md-5">
+              <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                    Editar La Noticia
+                  </p>
+                  <form action="{% url 'EDN' noticia.id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label class="form-label" for="txtid">ID NOTICIA</label>
+                        <input required type="number" id="txtid" name="txtid" onblur="verificar_id_noticia()" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label class="form-label" for="txtnombre">Titulo de la noticia</label>
+                        <input required type="text" id="txtnombre" name="txtnombre" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label class="form-label" for="cbocategoria">Categoria</label>
+                        <select class="form-control" id="cbocategoria" name="cbocategoria">
+                          {% for item in categorias %}
+                            <option>{{item.nombre}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label class="form-label" for="txtdesc">Descripcion de la noticia</label>
+                        <textarea class="textAreaBox" style="height: 200px; width: 100%;" name="txtdesc" id="txtdesc" cols="35" rows="6"></textarea>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label class="form-label" for="txtubicacion">Ubicacion (Ejemplo: Santiago, Chile)</label>
+                        <input required type="text" id="txtubicacion" name="txtubicacion" class="form-control" />
+                      </div>
+                    </div>
+                    <label class="form-label">Elije qué subir (Foto o Video)</label>
+                    <br>
+                    <section id="multi-selector-uniq" class="mb-3">
+                      <div class="form-group">
+                        <label class="form-label" for="txtfotos">Fotos</label>
+                        <div class="col">
+                          <input type="file" class="form-control" id="txtfotos" name="txtfotos" accept="image/*" multiple>
+                        </div>
+                        <br>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="txtvideos">Videos (Se recomienda MP4)</label>
+                        <div class="col">
+                          <input type="file" class="form-control" id="txtvideos" name="txtvideos" accept="video/*">
+                        </div>
+                      </div>
+                      <ul id="preview"></ul>
+                    </section>
+                    <br>
+                    <section id="multi-selector-uniq">
+                      <div class="mb-">
+                        <label class="form-label" for="miniatura">Miniatura de la Noticia (Solo Imágenes)</label>
+                        <input required class="form-control" name="txtminiatura" id="txtminiatura" type="file" accept="image/*">
+                      </div>
+                      <ul id="preview"></ul>
+                    </section>
+                    <br>
+                    <div>
+                      <button type="submit" class="btn btn-primary btn-block mb-4">Enviar solicitud de noticia</button>
+                      <button type="reset" class="btn btn-danger btn-block mb-4">Limpiar todo</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock contenedor %}
+
+    {% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/script-archivos.js"></script>
+    <script src="js/tinymce/tinymce.min.js" referrerpolicy="origin"></script> 
+    <script>tinymce.init({selector:'textarea'});</script>
+    <script src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% endblock js %}
+
+    
+

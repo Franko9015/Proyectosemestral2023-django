@@ -28,5 +28,7 @@ urlpatterns = [
     path('AgregarNoticia/',ingresarnoticia,name='AGRNON'),
     path('AdministradorNoticia/',adminnoticia,name='ADMNON'),
     path('buscar/',buscar_noticias,name='BUSCAR'),
+    path('Editot/<id>/',editar_noticia,name='EDN'),
+    path('EstadoN/',estado_noticia,name='EST'),
     path('logout/', logout, name='LOGOUT'),
 ]

@@ -1,0 +1,91 @@
+{% extends 'base5.html' %}
+{% load static %}
+
+{% block contenedor %}
+
+<!--Seccion donde llenar (Noticias o Administrador)-->
+<main>
+  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+    CN Estado de noticia
+  </p>
+
+  <!-- tabla de editores-->
+  <form action="{% url 'EST' %}" id="form" class="form" method="POST">
+    {% csrf_token %}
+    <table class="estilo-tabla">
+      <!-- cabecera -->
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>ID Noticia</th>
+          <th>Noticia</th>
+          <th>Estado</th>
+          <th>Observaciones o Motivos</th>
+          <th></th>
+        </tr>
+      </thead>
+      <!-- cuerpo -->
+      <tbody>
+        {% for noticia in noticias %}
+        <tr>
+          <td>{{ noticia.usuario.first_name }} {{ noticia.usuario.last_name }}</td>
+          <td>{{ noticia.idNoticia }}</td>
+          <td>
+            <a href="{% url 'NON' noticia.idNoticia %}" class="btn btn-margen-derecha btn-outline-success btn-centrar-tabla">Ver Noticia</a>
+          </td>
+          <td>
+            {% if noticia.estado == 'rechazado' %}
+            <span class="badge bg-danger">Rechazado</span>
+            {% elif noticia.estado == 'aprobado' %}
+            <span class="badge bg-success">Aprobado</span>
+            {% else %}
+            <span class="badge bg-secondary">Pendiente</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if noticia.estado == 'rechazado' or noticia.estado == 'pendiente' %}
+            <button type="button" class="btn btn-link btn-open-modal" data-bs-toggle="modal" data-bs-target="#motivosModal{{ noticia.idNoticia }}">Ver Motivos</button>
+            <!-- Modal de motivos -->
+            <div class="modal fade" id="motivosModal{{ noticia.idNoticia }}" tabindex="-1" aria-labelledby="motivosModalLabel{{ noticia.idNoticia }}" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="motivosModalLabel{{ noticia.idNoticia }}">Motivos de Rechazo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>{{ noticia.comentario }}</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          </td>
+          <td>
+            {% if noticia.estado == 'rechazado' or noticia.estado == 'pendiente' %}
+            <a href="{% url 'EDN' noticia.idNoticia %}" class="btn btn-margen-derecha btn-outline-success btn-centrar-tabla">Editar Noticia</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}        
+      </tbody>
+    </table>
+  </form>
+</main>
+{% endblock %}
+
+
+
+    </main>
+    {% block js %}
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+
+      </script>
+    {% endblock js %}
+    <!-- SCRIPT BOOTSTRAP -->
+  </body>
+</html>

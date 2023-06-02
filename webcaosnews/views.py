@@ -7,6 +7,7 @@ from django.views.decorators.http import require_POST
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth import logout, login as login_aut, authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
 import random
 
@@ -269,7 +270,6 @@ def buscar_noticias(request):
 
 
 
-
 def adminnoticia(request):
     if request.method == 'POST':
         # Obtener los datos del formulario
@@ -279,21 +279,84 @@ def adminnoticia(request):
                 noticia_id = key.replace('opcion_', '')
                 # Obtener el estado seleccionado (aprobado o rechazado)
                 estado = value
-                # Aprobar o eliminar la noticia según el estado
+                # Obtener las observaciones o motivos
+                observaciones = request.POST.get('observaciones_' + noticia_id, '')
+                # Actualizar el estado de la noticia según el estado seleccionado
+                noticia = get_object_or_404(Noticia, idNoticia=noticia_id)
                 if estado == 'aprobado':
-                    noticia = get_object_or_404(Noticia, idNoticia=noticia_id)
                     noticia.publicado = True
-                    noticia.save()
+                    noticia.comentario = ''
                 elif estado == 'rechazado':
-                    Noticia.objects.filter(idNoticia=noticia_id).delete()
+                    noticia.publicado = False
+                    noticia.comentario = observaciones
+                noticia.save()
 
         # Redirigir nuevamente a la página de administración de noticias
         return redirect('ADMNON')
 
-    # Obtener todas las noticias no publicadas
-    noticias = Noticia.objects.filter(publicado=False)
+    # Obtener todas las noticias pendientes de aprobación
+    noticias = Noticia.objects.filter(publicado=False, comentario='')
     context = {'noticias': noticias}
     return render(request, 'administrador.html', context)
+
+
+@login_required  # Asegura que el usuario esté autenticado para acceder a esta vista
+def estado_noticia(request):
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        for key, value in request.POST.items():
+            if key.startswith('observaciones_'):
+                # Obtener el ID de la noticia
+                noticia_id = key.replace('observaciones_', '')
+                # Obtener las observaciones o motivos
+                observaciones = value
+                # Actualizar el comentario y el estado de la noticia
+                noticia = get_object_or_404(Noticia, idNoticia=noticia_id)
+                noticia.comentario = observaciones
+                if observaciones:
+                    noticia.estado = 'rechazado'
+                else:
+                    noticia.estado = 'pendiente'
+                noticia.save()
+
+        # Redirigir nuevamente a la página de estado de noticia
+        return redirect('EST')
+
+    # Obtener las noticias del usuario actual
+    noticias = Noticia.objects.filter(usuario=request.user)
+
+    context = {'noticias': noticias}
+    return render(request, 'estado.html', context)
+
+
+def editar_noticia(request):
+    if request.method == 'POST':
+        noticia_id = request.POST.get('txtid')
+        titulo = request.POST.get('txtnombre')
+        categoria = request.POST.get('cbocategoria')
+        descripcion = request.POST.get('txtdesc')
+        ubicacion = request.POST.get('txtubicacion')
+
+        # Obtener la instancia de la noticia a editar
+        noticia = get_object_or_404(Noticia, id=noticia_id)
+
+        # Actualizar los campos de la noticia
+        noticia.titulo = titulo
+        noticia.categoria = categoria
+        noticia.descripcion = descripcion
+        noticia.ubicacion = ubicacion
+
+        # Guardar la noticia actualizada
+        noticia.save()
+
+        # Redirigir a la página de detalles de la noticia
+        return HttpResponseRedirect('/noticias/detalle/{noticia_id}')
+
+    # Si no es una solicitud POST, renderizar el formulario de edición de la noticia
+    return render(request, 'Editar_noticia.html')
+
+
+
 
 def logout(request):
     return auth_views.LogoutView.as_view(next_page='IND')(request)

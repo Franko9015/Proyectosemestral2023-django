@@ -34,16 +34,16 @@
           <a href="{% url 'NON' noticia.idNoticia %}" class="btn btn-margen-derecha btn-outline-success btn-centrar-tabla">Ver Noticia</a>
         </td>
         <td>
-          <input type="radio" class="btn-check" name="opcion_{{ noticia.idNoticia }}" id="aprobar_{{ noticia.idNoticia }}" autocomplete="off" value="aprobado" onclick="enableRadio('rechazar_{{ noticia.idNoticia }}')">
+          <input type="radio" class="btn-check visually-hidden" name="opcion_{{ noticia.idNoticia }}" id="aprobar_{{ noticia.idNoticia }}" autocomplete="off" value="aprobado" onclick="enableRadio('rechazar_{{ noticia.idNoticia }}')">
           <label class="btn btn-outline-success" for="aprobar_{{ noticia.idNoticia }}">Aprobado</label>
           
-          <input type="radio" class="btn-check" name="opcion_{{ noticia.idNoticia }}" id="rechazar_{{ noticia.idNoticia }}" autocomplete="off" value="rechazado" onclick="enableRadio('aprobar_{{ noticia.idNoticia }}')">
-          <label class="btn btn-outline-danger" for="rechazar_{{ noticia.idNoticia }}">Rechazado</label>
+          <input type="radio" class="btn-check visually-hidden" name="opcion_{{ noticia.idNoticia }}" id="rechazar_{{ noticia.idNoticia }}" autocomplete="off" value="rechazado" onclick="enableRadio('aprobar_{{ noticia.idNoticia }}')">
+          <label class="btn btn-outline-danger" for="rechazar_{{ noticia.idNoticia }}">Rechazado</label>          
         </td>
         <td>
           <div class="form-group">
             <textarea name="observaciones_{{ noticia.idNoticia }}" placeholder="Observaciones o Motivos" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-          </div>
+        </div>        
         </td>
         <td>
           <button type="submit" class="btn btn-margen-derecha btn-outline-success btn-centrar-tabla">Enviar</button>

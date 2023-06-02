@@ -12,21 +12,29 @@ class Categorias(models.Model):
     
 
 
+from django.db import models
+from django.contrib.auth.models import User
+
 class Noticia(models.Model):
-        idNoticia = models.IntegerField(primary_key=True)
-        Titulo = models.CharField(max_length=200)
-        Descripcion = models.TextField()
-        Ubicacion = models.CharField(max_length=15, default='Desconocido')
-        Fotos = models.ImageField(upload_to='foto', null=True, blank=True)
-        miniatura= models.ImageField(upload_to='foto', null=True)
-        video = models.FileField(upload_to='video', null=True, blank=True)
-        Categorias = models.ForeignKey(Categorias, on_delete=models.CASCADE)
-        fecha_publicacion = models.DateTimeField(auto_now_add=True, null=True)
-        publicado = models.BooleanField(default=False)
-        usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    idNoticia = models.IntegerField(primary_key=True)
+    Titulo = models.CharField(max_length=200)
+    Descripcion = models.TextField()
+    Ubicacion = models.CharField(max_length=15, default='Desconocido')
+    Fotos = models.ImageField(upload_to='foto', null=True, blank=True)
+    miniatura = models.ImageField(upload_to='foto', null=True)
+    video = models.FileField(upload_to='video', null=True, blank=True)
+    Categorias = models.ForeignKey(Categorias, on_delete=models.CASCADE)
+    fecha_publicacion = models.DateTimeField(auto_now_add=True, null=True)
+    publicado = models.BooleanField(default=False)
+    comentario = models.CharField(max_length=200, blank=True, default='Motivo Desconocido')
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
-        def __str__(self):
-            return self.Titulo
+    ESTADO_CHOICES = [
+        ('pendiente', 'Pendiente'),
+        ('aprobado', 'Aprobado'),
+        ('rechazado', 'Rechazado'),
+    ]
+    estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='pendiente')
 
-
-
+    def __str__(self):
+        return self.Titulo
