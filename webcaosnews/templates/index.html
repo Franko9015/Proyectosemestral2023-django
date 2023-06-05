@@ -91,7 +91,7 @@
       <div class="col-md-6 mb-4">
         <span class="badge bg-danger px-2 py-1 shadow-1-strong mb-3">NOTICIA DEL DÍA!</span>
         <h4><strong>{{ item.Titulo }}</strong></h4>
-        <p class="text-muted">{{ item.Descripcion }}</p>
+        <p class="text-muted">{{ item.Descripcion|truncatechars:150  }}</p>
         <a href="{%url 'NON' item.idNoticia %}" type="button" class="btn btn-primary">Leer Más</a>
       </div>
     </div>

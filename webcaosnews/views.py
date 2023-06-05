@@ -148,10 +148,41 @@ def salud(request):
     'numeros_pagina': range(1, paginator.num_pages + 1) }
     return render(request, "Salud.html",data)
 
-def noticia(request,id):
-    non= Noticia.objects.get(idNoticia=id)
-    data={"item":non}
-    return render(request,"noticia.html",data) #Foto Normal
+
+def noticia(request, id):
+    # Obtener la noticia correspondiente al ID proporcionado
+    noticia = get_object_or_404(Noticia, idNoticia=id)
+
+    # Obtener los comentarios asociados a la noticia
+    comentarios = Comentarios.objects.filter(noticia=noticia)
+
+    # Obtener los artículos más leídos
+    articulos_mas_leidos = Noticia.objects.order_by('-fecha_publicacion')[:5]
+
+
+    # Crear un diccionario con los datos a pasar a la plantilla
+    data = {
+        'noticia': noticia,  # La noticia actual
+        'comentarios': comentarios,  # Los comentarios asociados a la noticia
+        'articulos_mas_leidos': articulos_mas_leidos,  # Los artículos más leídos
+    }
+
+    # Verificar si el usuario está autenticado
+    if request.user.is_authenticated:
+        # Procesar el formulario de comentario enviado
+        if request.method == 'POST':
+            comentario_texto = request.POST.get('comment-text', '')
+            # Crear el comentario asociado a la noticia y al usuario actual
+            comentarios = Comentarios(usuario=request.user, texto=comentario_texto, noticia=noticia)
+            comentario.save()
+            # Redireccionar a la misma página después de agregar el comentario
+            return redirect('noticia', id=id)
+
+    # Renderizar la plantilla "noticia.html" con los datos
+    return render(request, "noticia.html", data)
+
+
+
 
 def login(request):
     if request.method == 'POST':
@@ -272,32 +303,28 @@ def buscar_noticias(request):
 
 def adminnoticia(request):
     if request.method == 'POST':
-        # Obtener los datos del formulario
         for key, value in request.POST.items():
             if key.startswith('opcion_'):
-                # Obtener el ID de la noticia
                 noticia_id = key.replace('opcion_', '')
-                # Obtener el estado seleccionado (aprobado o rechazado)
                 estado = value
-                # Obtener las observaciones o motivos
                 observaciones = request.POST.get('observaciones_' + noticia_id, '')
-                # Actualizar el estado de la noticia según el estado seleccionado
                 noticia = get_object_or_404(Noticia, idNoticia=noticia_id)
                 if estado == 'aprobado':
                     noticia.publicado = True
                     noticia.comentario = ''
+                    noticia.estado = 'aprobado'  # Cambiar el estado a "aprobado"
                 elif estado == 'rechazado':
                     noticia.publicado = False
                     noticia.comentario = observaciones
+                    noticia.estado = 'rechazado'  # Cambiar el estado a "rechazado"
                 noticia.save()
 
-        # Redirigir nuevamente a la página de administración de noticias
         return redirect('ADMNON')
 
-    # Obtener todas las noticias pendientes de aprobación
     noticias = Noticia.objects.filter(publicado=False, comentario='')
     context = {'noticias': noticias}
     return render(request, 'administrador.html', context)
+
 
 
 @login_required  # Asegura que el usuario esté autenticado para acceder a esta vista
@@ -329,31 +356,37 @@ def estado_noticia(request):
     return render(request, 'estado.html', context)
 
 
-def editar_noticia(request):
+def editar_noticia(request, id):
+    cate = Categorias.objects.all()
+    noticia = get_object_or_404(Noticia, idNoticia=id)
+    data = {'categorias': cate, 'noticia': noticia}
+
     if request.method == 'POST':
-        noticia_id = request.POST.get('txtid')
-        titulo = request.POST.get('txtnombre')
-        categoria = request.POST.get('cbocategoria')
-        descripcion = request.POST.get('txtdesc')
-        ubicacion = request.POST.get('txtubicacion')
+        nom = request.POST.get("txtnombre")
+        desc = request.POST.get("txtdesc")
+        ubi = request.POST.get("txtubicacion")
+        cate = request.POST.get("cbocategoria")
+        miniatura = request.FILES.get("txtminiatura")
+        fotos = request.FILES.get("txtfotos")
+        videos = request.FILES.get("txtvideos")
+        categoria = Categorias.objects.get(nombre=cate)
 
-        # Obtener la instancia de la noticia a editar
-        noticia = get_object_or_404(Noticia, id=noticia_id)
+        # Actualizamos los campos de la noticia existente
+        noticia.Titulo = nom
+        noticia.Descripcion = desc
+        noticia.Ubicacion = ubi
+        noticia.Categorias = categoria
+        noticia.miniatura = miniatura
+        noticia.Fotos = fotos
+        noticia.video = videos
+        noticia.estado = 'pendiente'  # Cambiamos el estado a "pendiente"
+        noticia.comentario = ''  # Eliminamos el comentario de rechazo
 
-        # Actualizar los campos de la noticia
-        noticia.titulo = titulo
-        noticia.categoria = categoria
-        noticia.descripcion = descripcion
-        noticia.ubicacion = ubicacion
+        noticia.save()  # guardar la noticia actualizada en la base de datos
+        data['mensaje'] = "Noticia actualizada con éxito."
 
-        # Guardar la noticia actualizada
-        noticia.save()
-
-        # Redirigir a la página de detalles de la noticia
-        return HttpResponseRedirect('/noticias/detalle/{noticia_id}')
-
-    # Si no es una solicitud POST, renderizar el formulario de edición de la noticia
-    return render(request, 'Editar_noticia.html')
+        return redirect('EST') # Redirigir a la página de estado de noticia
+    return render(request, "Editar_noticia.html", data)
 
 
 

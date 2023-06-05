@@ -10,11 +10,6 @@ class Categorias(models.Model):
     def __str__(self) -> str:
         return super().__str__()
     
-
-
-from django.db import models
-from django.contrib.auth.models import User
-
 class Noticia(models.Model):
     idNoticia = models.IntegerField(primary_key=True)
     Titulo = models.CharField(max_length=200)
@@ -38,3 +33,13 @@ class Noticia(models.Model):
 
     def __str__(self):
         return self.Titulo
+
+class Comentarios(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    texto = models.TextField()
+    fecha = models.DateTimeField(auto_now_add=True)
+    noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE, related_name='comentarios')
+    comentario_padre = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='respuestas')
+
+    def __str__(self):
+        return f"Comentario por {self.usuario.username}"
