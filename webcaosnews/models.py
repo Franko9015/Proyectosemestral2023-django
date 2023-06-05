@@ -21,7 +21,7 @@ class Noticia(models.Model):
     Categorias = models.ForeignKey(Categorias, on_delete=models.CASCADE)
     fecha_publicacion = models.DateTimeField(auto_now_add=True, null=True)
     publicado = models.BooleanField(default=False)
-    comentario = models.CharField(max_length=200, blank=True, default='Motivo Desconocido')
+    comentario = models.CharField(max_length=200, blank=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     ESTADO_CHOICES = [

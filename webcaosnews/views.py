@@ -157,7 +157,7 @@ def noticia(request, id):
     comentarios = Comentarios.objects.filter(noticia=noticia, comentario_padre=None).prefetch_related('respuestas')
 
     # Obtener los artículos más leídos
-    articulos_mas_leidos = Noticia.objects.order_by('-fecha_publicacion')[:5]
+    articulos_mas_leidos = Noticia.objects.filter(publicado=True).exclude(idNoticia=id).order_by('-fecha_publicacion')[:5]
 
     # Verificar si el usuario está autenticado
     if request.user.is_authenticated:
@@ -326,13 +326,13 @@ def adminnoticia(request):
 
         return redirect('ADMNON')
 
-    noticias = Noticia.objects.filter(publicado=False, comentario='')
+    noticias = Noticia.objects.filter(estado='pendiente', comentario='')
     context = {'noticias': noticias}
     return render(request, 'administrador.html', context)
 
 
 
-@login_required  # Asegura que el usuario esté autenticado para acceder a esta vista
+@login_required
 def estado_noticia(request):
     if request.method == 'POST':
         # Obtener los datos del formulario
@@ -350,6 +350,13 @@ def estado_noticia(request):
                 else:
                     noticia.estado = 'pendiente'
                 noticia.save()
+
+            elif key.startswith('eliminar_'):
+                # Obtener el ID de la noticia a eliminar
+                noticia_id = key.replace('eliminar_', '')
+                # Eliminar la noticia
+                noticia = get_object_or_404(Noticia, idNoticia=noticia_id)
+                noticia.delete()
 
         # Redirigir nuevamente a la página de estado de noticia
         return redirect('EST')

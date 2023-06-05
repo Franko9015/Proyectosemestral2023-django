@@ -2,18 +2,14 @@
 {% load static %}
 
 {% block contenedor %}
-
-<!--Seccion donde llenar (Noticias o Administrador)-->
 <main>
   <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
     CN Estado de noticia
   </p>
 
-  <!-- tabla de editores-->
-  <form action="{% url 'EST' %}" id="form" class="form" method="POST">
+  <form action="{% url 'EST' %}" id="form" class="form" method="POST" onsubmit="return confirmarEliminacion()">
     {% csrf_token %}
     <table class="estilo-tabla">
-      <!-- cabecera -->
       <thead>
         <tr>
           <th>Nombre</th>
@@ -24,7 +20,6 @@
           <th></th>
         </tr>
       </thead>
-      <!-- cuerpo -->
       <tbody>
         {% for noticia in noticias %}
         <tr>
@@ -45,7 +40,6 @@
           <td>
             {% if noticia.estado == 'rechazado' or noticia.estado == 'pendiente' %}
             <button type="button" class="btn btn-link btn-open-modal" data-bs-toggle="modal" data-bs-target="#motivosModal{{ noticia.idNoticia }}">Ver Motivos</button>
-            <!-- Modal de motivos -->
             <div class="modal fade" id="motivosModal{{ noticia.idNoticia }}" tabindex="-1" aria-labelledby="motivosModalLabel{{ noticia.idNoticia }}" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -66,7 +60,23 @@
           </td>
           <td>
             {% if noticia.estado == 'rechazado' or noticia.estado == 'pendiente' %}
-            <a href="{% url 'EDN' noticia.idNoticia %}" class="btn btn-margen-derecha btn-outline-success btn-centrar-tabla">Editar Noticia</a>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="opcionesDropdown{{ noticia.idNoticia }}" data-bs-toggle="dropdown" aria-expanded="false">
+                  Opciones
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="opcionesDropdown{{ noticia.idNoticia }}">
+                  <li><a class="dropdown-item" href="{% url 'EDN' noticia.idNoticia %}">Editar Noticia</a></li>
+                  {% if noticia.estado == 'rechazado' %}
+                  <li>
+                    <form action="{% url 'EST' %}" method="POST" style="display: inline;">
+                      {% csrf_token %}
+                      <input type="hidden" name="eliminar_{{ noticia.idNoticia }}" value="1">
+                      <button type="submit" id="btnEliminar_{{ noticia.idNoticia }}" class="dropdown-item text-danger btn-eliminar-noticia" data-noticia-id="{{ noticia.idNoticia }}">Eliminar Noticia</button>
+                    </form>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
             {% endif %}
           </td>
         </tr>
@@ -81,10 +91,35 @@
 
     </main>
     {% block js %}
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
-
-      </script>
+      function confirmarEliminacion(noticiaId) {
+        Swal.fire({
+          title: "¿Estás seguro de eliminar esta noticia?",
+          text: "Esta acción no se puede deshacer.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Eliminar",
+          cancelButtonText: "Cancelar",
+          dangerMode: true,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            document.getElementById('btnEliminar_' + noticiaId).closest("form").submit();
+          }
+        });
+        return false;
+      }
+    
+      const botonesEliminar = document.querySelectorAll('.btn-eliminar-noticia');
+      botonesEliminar.forEach((boton) => {
+        boton.onclick = function() {
+          const noticiaId = this.getAttribute('data-noticia-id');
+          confirmarEliminacion(noticiaId);
+        };
+      });
+    </script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {% endblock js %}
     <!-- SCRIPT BOOTSTRAP -->
   </body>

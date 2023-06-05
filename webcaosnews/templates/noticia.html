@@ -142,7 +142,7 @@
         <!-- Formulario de comentario -->
         <div class="card mb-4">
           <div class="card-body">
-            <form action="#" method="POST" class="mb-2">
+            <form action="#" method="POST" class="mb-2" onsubmit="return confirmComment(this)">
               {% csrf_token %}
               <input type="hidden" name="comentario-padre-id" value="{{ comentario.id }}">
               <div class="mb-3">
@@ -179,7 +179,7 @@
                     <p>No hay respuestas.</p>
                   {% endfor %}
                   {% if user.is_authenticated %}
-                    <form action="#" method="POST" class="mb-2">
+                    <form action="#" method="POST" class="mb-2" onsubmit="return confirmComment(this)">
                       {% csrf_token %}
                       <input type="hidden" name="comentario-padre-id" value="{{ comentario.id }}">
                       <div class="mb-3">
@@ -201,5 +201,36 @@
     </div>
   </div>
 </div>
+
 {% endblock contenedor %}
 
+{% block js %}
+
+<script>
+  function confirmComment(form) {
+    const commentText = form.querySelector('#reply-text').value.trim();
+
+    if (commentText === '') {
+      Swal.fire('Error', 'No puedes dejar un comentario vacío', 'error');
+      return false; // Evita enviar el formulario
+    }
+
+    Swal.fire({
+      title: 'Confirmar comentario',
+      text: '¿Estás seguro de que deseas enviar el comentario?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, enviar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // El usuario confirmó, puedes enviar el formulario
+        form.submit();
+      }
+    });
+
+    return false; // Evita enviar el formulario si el usuario cancela la confirmación
+  }
+</script>
+<script src= "https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock js %}
