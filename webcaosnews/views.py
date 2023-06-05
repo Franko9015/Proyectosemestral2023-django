@@ -153,12 +153,28 @@ def noticia(request, id):
     # Obtener la noticia correspondiente al ID proporcionado
     noticia = get_object_or_404(Noticia, idNoticia=id)
 
-    # Obtener los comentarios asociados a la noticia
-    comentarios = Comentarios.objects.filter(noticia=noticia)
+    # Obtener los comentarios asociados a la noticia y sus respuestas
+    comentarios = Comentarios.objects.filter(noticia=noticia, comentario_padre=None).prefetch_related('respuestas')
 
     # Obtener los artículos más leídos
     articulos_mas_leidos = Noticia.objects.order_by('-fecha_publicacion')[:5]
 
+    # Verificar si el usuario está autenticado
+    if request.user.is_authenticated:
+        # Procesar el formulario de comentario enviado
+        if request.method == 'POST':
+            comentario_texto = request.POST.get('comment-text', '')
+            comentario_padre_id = request.POST.get('comentario-padre-id', None)
+
+            if comentario_padre_id:
+                comentario_padre = Comentarios.objects.get(id=comentario_padre_id)
+                nuevo_comentario = Comentarios(usuario=request.user, texto=comentario_texto, noticia=noticia, comentario_padre=comentario_padre)
+            else:
+                nuevo_comentario = Comentarios(usuario=request.user, texto=comentario_texto, noticia=noticia)
+
+            nuevo_comentario.save()
+            # Redireccionar a la misma página después de agregar el comentario
+            return redirect('NON', id=id)
 
     # Crear un diccionario con los datos a pasar a la plantilla
     data = {
@@ -166,17 +182,6 @@ def noticia(request, id):
         'comentarios': comentarios,  # Los comentarios asociados a la noticia
         'articulos_mas_leidos': articulos_mas_leidos,  # Los artículos más leídos
     }
-
-    # Verificar si el usuario está autenticado
-    if request.user.is_authenticated:
-        # Procesar el formulario de comentario enviado
-        if request.method == 'POST':
-            comentario_texto = request.POST.get('comment-text', '')
-            # Crear el comentario asociado a la noticia y al usuario actual
-            comentarios = Comentarios(usuario=request.user, texto=comentario_texto, noticia=noticia)
-            comentario.save()
-            # Redireccionar a la misma página después de agregar el comentario
-            return redirect('noticia', id=id)
 
     # Renderizar la plantilla "noticia.html" con los datos
     return render(request, "noticia.html", data)

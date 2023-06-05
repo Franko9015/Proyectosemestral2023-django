@@ -40,6 +40,6 @@ class Comentarios(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE, related_name='comentarios')
     comentario_padre = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='respuestas')
-
+    
     def __str__(self):
         return f"Comentario por {self.usuario.username}"
