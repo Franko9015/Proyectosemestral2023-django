@@ -24,7 +24,6 @@ urlpatterns = [
     path('Registro/',registro,name='REG'),
     path('Contacto/',contacto,name='CON'),
     path('Noticia/<id>/',noticia,name='NON'), # Foto Unica
-    path('Usuario/',indexusuario,name='USU1'),
     path('AgregarNoticia/',ingresarnoticia,name='AGRNON'),
     path('AdministradorNoticia/',adminnoticia,name='ADMNON'),
     path('buscar/',buscar_noticias,name='BUSCAR'),

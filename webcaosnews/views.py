@@ -7,7 +7,7 @@ from django.views.decorators.http import require_POST
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth import logout, login as login_aut, authenticate
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,permission_required
 from django.contrib.auth import views as auth_views
 import random
 
@@ -229,18 +229,6 @@ def registro(request):
 
 def contacto(request):
     return render(request, "contacto.html")
-def indexusuario(request):
-    noticias = Noticia.objects.filter(publicado=True)
-    paginator = Paginator(noticias, 7)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    
-    noticias_destacadas = []
-    if noticias.exists():
-        noticias_destacadas = random.sample(list(noticias), min(3, len(noticias)))
-
-    for noticia in noticias:
-        noticia.Descripcion = noticia.Descripcion[:140] + "..."
     
     data = {
         'noticia': page_obj,
@@ -250,6 +238,9 @@ def indexusuario(request):
     
     return render(request,"index_usuario.html",data)
 
+
+@login_required(login_url='/Login/')
+@permission_required('webcaosnews.add_noticia')
 def ingresarnoticia(request):
     cate = Categorias.objects.all()
     data = {'categorias': cate}
@@ -305,7 +296,8 @@ def buscar_noticias(request):
     return render(request, 'resultado_busqueda.html', {'noticias': noticias, 'query': query})
 
 
-
+@login_required(login_url='/Login/')
+@permission_required('webcaosnews.change_noticia')
 def adminnoticia(request):
     if request.method == 'POST':
         for key, value in request.POST.items():
@@ -332,7 +324,8 @@ def adminnoticia(request):
 
 
 
-@login_required
+@login_required(login_url='/Login/')
+@permission_required(['webcaosnews.change_noticia', 'webcaosnews.delete_noticia'])
 def estado_noticia(request):
     if request.method == 'POST':
         # Obtener los datos del formulario
@@ -367,7 +360,8 @@ def estado_noticia(request):
     context = {'noticias': noticias}
     return render(request, 'estado.html', context)
 
-
+@login_required(login_url='/Login/')
+@permission_required('webcaosnews.change_noticia')
 def editar_noticia(request, id):
     cate = Categorias.objects.all()
     noticia = get_object_or_404(Noticia, idNoticia=id)

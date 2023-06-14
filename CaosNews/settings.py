@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webcaosnews',
+  
 ]
 
 MIDDLEWARE = [
@@ -73,13 +74,27 @@ WSGI_APPLICATION = 'CaosNews.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+import cx_Oracle
+cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_21_10")
 
 DATABASES = {
-    'default': {
+    "default": {
+        "ENGINE": "django.db.backends.oracle",
+        "NAME": "orcl",
+        "USER": "CAOSNEWS1",
+        "PASSWORD": "CAOSNEWS.Test_1",
+        "HOST": "localhost",
+        "PORT": "1521   ",
+    }
+}
+
+
+'''
+'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
+'''
 
 
 # Password validation
