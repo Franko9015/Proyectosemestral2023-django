@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
+
 from datetime import datetime
 from .models import *
 from django.http import JsonResponse
@@ -393,7 +394,6 @@ def editar_noticia(request, id):
 
         return redirect('EST') # Redirigir a la página de estado de noticia
     return render(request, "Editar_noticia.html", data)
-
 
 
 

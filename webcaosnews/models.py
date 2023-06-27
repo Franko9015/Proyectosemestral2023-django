@@ -1,8 +1,11 @@
 from django.db import models
 from django.forms.widgets import ClearableFileInput
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Group, Permission
 
 # Create your models here.
+
+
 
 class Categorias(models.Model):
     nombre=models.CharField(primary_key=True,max_length=45)
