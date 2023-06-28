@@ -121,52 +121,54 @@
             </form>
                              
             <form class="d-flex" role="search">
-            <!---USUARIO-->
-            {% if user.is_authenticated %}
-              <div class="dropdown dropdown-edit">
-                <span class="visually-hidden">Perfil</span>
-                <a class="btn btn-outline-success" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
-                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
-                  </svg>
-                </a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item">
-                      {% if request.session.role == 'lector' %}
-                        <span class="badge bg-secondary mb-2">Lector</span>
-                      {% elif request.session.role == 'periodista' %}
-                        <span class="badge bg-success mb-2">Periodista</span>
-                      {% elif request.session.role == 'supervisor' %}
-                        <span class="badge bg-danger mb-2">Supervisor</span>
-                      {% endif %}
-                    {{ user.first_name }} {{ user.last_name }}
-                    {% if user.is_superuser %}
-                      <span class="badge bg-warning">Admin</span>
-                    {% endif %}
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  
-                  {% if user.is_superuser or 'periodista' in request.session.role %}
-                    <a class="dropdown-item" href="{% url 'AGRNON' %}">Agregar Noticia</a>
-                    <a class="dropdown-item" href="{% url 'EST' %}">Estado</a>
-                    <div class="dropdown-divider"></div>
+        <!---USUARIO-->
+        {% if user.is_authenticated %}
+          <div class="dropdown dropdown-edit">
+            <span class="visually-hidden">Perfil</span>
+            <a class="btn btn-outline-success" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
+              </svg>
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item">
+                  {% if request.session.role == 'lector' %}
+                    <span class="badge bg-secondary">Lector</span>
+                  {% elif request.session.role == 'periodista' %}
+                    <span class="badge bg-success">Periodista</span>
+                  {% elif request.session.role == 'supervisor' %}
+                    <span class="badge bg-danger">Supervisor</span>
                   {% endif %}
-                  
-                  {% if user.is_superuser or 'supervisor' in request.session.role %}
-                    <a class="dropdown-item" href="{% url 'ADMNON' %}">Administrador</a>
-                    <div class="dropdown-divider"></div>
-                  {% endif %}
-                  
-                  <a class="btn btn-rojo-edit" href="{% url 'LOGOUT' %}">Cerrar Sesión</a>
-                </div>
-              </div>
-            {% else %}
-              <a href="{% url 'LOG' %}" class="btn btn-outline-info" role="button">Ingresar</a>
-              <a href="{% url 'REG' %}" class="btn btn-outline-dark" role="button">Registrarse</a>
-            {% endif %}
+                {{ user.first_name }} {{ user.last_name }}
+                {% if user.is_superuser %}
+                  <span class="badge bg-warning">Admin</span>
+                {% endif %}
+              </a>
+              <div class="dropdown-divider"></div>
+              
+              {% if user.is_superuser or 'periodista' in request.session.role %}
+                <a class="dropdown-item" href="{% url 'AGRNON' %}">Agregar Noticia</a>
+                <a class="dropdown-item" href="{% url 'EST' %}">Estado</a>
+                <div class="dropdown-divider"></div>
+              {% endif %}
+              
+              {% if user.is_superuser or 'supervisor' in request.session.role %}
+                <a class="dropdown-item" href="{% url 'ADMNON' %}">Administrador</a>
+                <div class="dropdown-divider"></div>
+              {% endif %}
+              
+              <a class="btn btn-rojo-edit" href="{% url 'LOGOUT' %}">Cerrar Sesión</a>
+            </div>
           </div>
-        </nav>
+        {% else %}
+          <a href="{% url 'LOG' %}" class="btn btn-outline-info" role="button">Ingresar</a>
+          <a href="{% url 'REG' %}" class="btn btn-outline-dark" role="button">Registrarse</a>
+        {% endif %}
+        </form>
+          </div>
+        </div>
+      </nav>
     </header>
     <main>
      {% block contenedor %}
@@ -254,9 +256,9 @@
           </footer>
 
     {% block js %}
-    
+ 
     
     {% endblock js %}
-    <script src="{%static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{%static 'js/bootstrap.bundle.min.js' %}"></script>  
 </body>
 </html>
