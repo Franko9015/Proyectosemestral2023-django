@@ -132,24 +132,24 @@
   <div class="col-8">
     <div class="d-flex justify-content-between align-items-center">
       <h1 class="h1 fw-bold my-4">Comentarios ({{ comentarios|length }})</h1>
-      <button class="btn btn-primary btn-lg" type="button" data-bs-toggle="collapse" data-bs-target="#commentSection" aria-expanded="true" aria-controls="commentSection">
-        Mostrar/Ocultar comentarios
+      <button class="btn btn-primary btn-lg" type="button" id="toggleCommentsButton">
+        Mostrar comentarios
       </button>
     </div>
 
-    <div class="collapse show" id="commentSection">
+    <div class="collapse" id="commentSection">
       {% if user.is_authenticated %}
         <!-- Formulario de comentario -->
         <div class="card mb-4">
           <div class="card-body">
             <form action="#" method="POST" class="mb-2" onsubmit="return confirmComment(this)">
               {% csrf_token %}
-              <input type="hidden" name="comentario-padre-id" value="{{ comentario.id }}">
+              <input type="hidden" name="comment-text" value="{{ comentario.id }}">
               <div class="mb-3">
                 <label for="reply-text" class="form-label">Responder:</label>
-                <textarea class="form-control" id="reply-text" name="comment-text" rows="2"></textarea>
+                <textarea class="form-control" id="reply-text" name="comment-text" rows="2" placeholder="Escribe tu comentario aquí"></textarea>
               </div>
-              <button type="submit" class="btn btn-primary">Enviar respuesta</button>
+              <button type="submit" class="btn btn-primary">Enviar comentario</button>
             </form>
           </div>
         </div>
@@ -184,7 +184,7 @@
                       <input type="hidden" name="comentario-padre-id" value="{{ comentario.id }}">
                       <div class="mb-3">
                         <label for="reply-text" class="form-label">Responder:</label>
-                        <textarea class="form-control" id="reply-text" name="comment-text" rows="2"></textarea>
+                        <textarea class="form-control" id="reply-text" name="comment-text" rows="2" placeholder="Escribe tu respuesta aquí"></textarea>
                       </div>
                       <button type="submit" class="btn btn-primary">Enviar respuesta</button>
                     </form>
@@ -202,10 +202,54 @@
   </div>
 </div>
 
+
 {% endblock contenedor %}
 
 {% block js %}
+<script>
+  // Script para ocultar/mostrar los comentarios con animación
+  var toggleCommentsButton = document.getElementById('toggleCommentsButton');
+  var commentSection = document.getElementById('commentSection');
+  var commentsVisible = false;
 
+  toggleCommentsButton.addEventListener('click', function() {
+    commentsVisible = !commentsVisible;
+    if (commentsVisible) {
+      commentSection.style.display = 'block';
+      slideDown(commentSection);
+      toggleCommentsButton.textContent = 'Ocultar comentarios';
+    } else {
+      slideUp(commentSection, function() {
+        commentSection.style.display = 'none';
+      });
+      toggleCommentsButton.textContent = 'Mostrar comentarios';
+    }
+  });
+
+  // Función para deslizar hacia abajo (mostrar) con animación
+  function slideDown(element) {
+    element.style.maxHeight = '0';
+    element.style.transition = 'max-height 0.3s ease';
+    element.style.overflow = 'hidden';
+    requestAnimationFrame(function() {
+      element.style.maxHeight = '100000px'; // Altura máxima deseada
+    });
+  }
+
+  // Función para deslizar hacia arriba (ocultar) con animación
+  function slideUp(element, callback) {
+    element.style.maxHeight = element.scrollHeight + 'px';
+    element.style.transition = 'max-height 0.3s ease';
+    requestAnimationFrame(function() {
+      element.style.maxHeight = '0';
+    });
+    setTimeout(function() {
+      if (typeof callback === 'function') {
+        callback();
+      }
+    }, 300); // Asegurar que la animación se haya completado antes de ocultar el elemento
+  }
+</script>
 <script>
   function confirmComment(form) {
     const commentText = form.querySelector('#reply-text').value.trim();
@@ -232,5 +276,6 @@
     return false; // Evita enviar el formulario si el usuario cancela la confirmación
   }
 </script>
+
 <script src= "https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% endblock js %}

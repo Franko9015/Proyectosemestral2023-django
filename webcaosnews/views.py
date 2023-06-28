@@ -195,7 +195,11 @@ def login(request):
         usern = request.POST.get("ejemplo1")
         cont = request.POST.get("ejemplo2")
         usu = authenticate(request, username=usern, password=cont)
+        
         if usu is not None and usu.is_active:
+            grupo= (User.objects.get(username=usern)).groups.all()
+            print(grupo[0].name)
+            request.session['role']=grupo[0].name
             login_aut(request, usu)
             return redirect('IND')  # Redireccionar al index después de autenticarse correctamente
         else:
