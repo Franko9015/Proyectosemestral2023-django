@@ -140,7 +140,7 @@
                   {% elif request.session.role == 'supervisor' %}
                     <span class="badge bg-danger">Supervisor</span>
                   {% endif %}
-                {{ user.first_name }} {{ user.last_name }}
+                  <a class="dropdown-item" href="{% url 'PEF' user.username %}">{{ user.first_name }} {{ user.last_name }}</a>
                 {% if user.is_superuser %}
                   <span class="badge bg-warning">Admin</span>
                 {% endif %}
