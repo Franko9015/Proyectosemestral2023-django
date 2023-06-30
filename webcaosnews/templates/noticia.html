@@ -164,34 +164,58 @@
           <h5 class="card-title">Comentarios anteriores:</h5>
           {% if comentarios %}
             {% for comentario in comentarios %}
-              <div class="mb-3">
-                <h6 class="card-subtitle">{{ comentario.usuario.username }}</h6>
-                <p class="card-text">{{ comentario.texto }}</p>
-                <p class="card-text"><small class="text-muted">{{ comentario.fecha }}</small></p>
-                <div class="ml-4">
-                  {% for respuesta in comentario.respuestas.all %}
-                    <div class="mb-2">
-                      <h6 class="card-subtitle">{{ respuesta.usuario.username }}</h6>
-                      <p class="card-text">{{ respuesta.texto }}</p>
-                      <p class="card-text"><small class="text-muted">{{ respuesta.fecha }}</small></p>
-                    </div>
-                  {% empty %}
-                    <p>No hay respuestas.</p>
-                  {% endfor %}
-                  {% if user.is_authenticated %}
-                    <form action="#" method="POST" class="mb-2" onsubmit="return confirmComment(this)">
-                      {% csrf_token %}
-                      <input type="hidden" name="comentario-padre-id" value="{{ comentario.id }}">
-                      <div class="mb-3">
-                        <label for="reply-text" class="form-label">Responder:</label>
-                        <textarea class="form-control" id="reply-text" name="comment-text" rows="2"></textarea>
-                      </div>
-                      <button type="submit" class="btn btn-primary">Enviar respuesta</button>
-                    </form>
+            <div class="mb-3">
+              <div class="d-flex align-items-center">
+                <div class="rounded-circle overflow-hidden me-2" style="width: 30px; height: 30px;">
+                  {% if comentario.usuario.perfil.foto_perfil %}
+                    <img src="{{ comentario.usuario.perfil.foto_perfil.url }}" alt="avatar" class="w-100 h-100">
+                  {% else %}
+                    <img src="{% static 'img\fotopordefecto.jpg' %}" alt="avatar" class="w-100 h-100">
                   {% endif %}
                 </div>
+                <h6 class="card-subtitle">
+                  <a class="link-secondary" href="{% url 'PEF' comentario.usuario.username %}">{{ comentario.usuario.username }}</a>
+                </h6>
               </div>
-              <hr>
+              <p class="card-text">{{ comentario.texto }}</p>
+              <p class="card-text"><small class="text-muted">{{ comentario.fecha }}</small></p>
+              <!-- Respuestas al comentario -->
+              <div class="ml-4">
+                {% for respuesta in comentario.respuestas.all %}
+                  <div class="mb-2">
+                    <div class="d-flex align-items-center">
+                      <div class="rounded-circle overflow-hidden me-2" style="width: 30px; height: 30px;">
+                        {% if respuesta.usuario.perfil.foto_perfil %}
+                          <img src="{{ respuesta.usuario.perfil.foto_perfil.url }}" alt="avatar" class="w-100 h-100">
+                        {% else %}
+                          <img src="{% static 'img\fotopordefecto.jpg' %}" alt="avatar" class="w-100 h-100">
+                        {% endif %}
+                      </div>
+                      <h6 class="card-subtitle">
+                        <a class="link-secondary" href="{% url 'PEF' respuesta.usuario.username %}">{{ respuesta.usuario.username }}</a>
+                      </h6>
+                    </div>
+                    <p class="card-text">{{ respuesta.texto }}</p>
+                    <p class="card-text"><small class="text-muted">{{ respuesta.fecha }}</small></p>
+                  </div>
+                {% empty %}
+                  <p>No hay respuestas.</p>
+                {% endfor %}
+                <!-- Formulario de respuesta -->
+                {% if user.is_authenticated %}
+                  <form action="#" method="POST" class="mb-2" onsubmit="return confirmComment(this)">
+                    {% csrf_token %}
+                    <input type="hidden" name="comentario-padre-id" value="{{ comentario.id }}">
+                    <div class="mb-3">
+                      <label for="reply-text" class="form-label">Responder:</label>
+                      <textarea class="form-control" id="reply-text" name="comment-text" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar respuesta</button>
+                  </form>
+                {% endif %}
+              </div>
+            </div>
+            <hr>
             {% endfor %}
           {% else %}
             <p>No hay comentarios aún.</p>

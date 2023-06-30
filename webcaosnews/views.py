@@ -157,7 +157,7 @@ def noticia(request, id):
     noticia = get_object_or_404(Noticia, idNoticia=id)
 
     # Obtener los comentarios asociados a la noticia y sus respuestas
-    comentarios = Comentarios.objects.filter(noticia=noticia, comentario_padre=None).prefetch_related('respuestas')
+    comentarios = Comentarios.objects.filter(noticia=noticia, comentario_padre=None).prefetch_related('respuestas').order_by('-fecha')
 
     # Obtener los artículos más leídos
     articulos_mas_leidos = Noticia.objects.filter(publicado=True).exclude(idNoticia=id).order_by('-fecha_publicacion')[:5]
