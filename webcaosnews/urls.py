@@ -13,6 +13,8 @@ from .views import *
 
 urlpatterns = [
     path('',index,name='IND'),
+    path('perfil/<str:username>/', perfil, name='PEF'),
+    path('editar/<str:username>/', editar_perfil, name='EDP'),
     path('economia/',economia,name='ECO'),
     path('internacional/',internacional,name='INT'),
     path('politica/',politica,name='POL'),
@@ -22,11 +24,11 @@ urlpatterns = [
     path('Login/',login,name='LOG'),
     path('Registro/',registro,name='REG'),
     path('Contacto/',contacto,name='CON'),
-    path('Noticia/<id>/',noticia,name='NON'), # Foto Unica
+    path('Noticia/<id>/', noticia, name='NON'),
     path('AgregarNoticia/',ingresarnoticia,name='AGRNON'),
     path('AdministradorNoticia/',adminnoticia,name='ADMNON'),
     path('buscar/',buscar_noticias,name='BUSCAR'),
     path('Editot/<id>/',editar_noticia,name='EDN'),
     path('EstadoN/',estado_noticia,name='EST'),
-    path('logout/', logout, name='LOGOUT'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='IND'), name='LOGOUT'),
 ]

@@ -1,0 +1,166 @@
+{% extends 'base6.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block contenedor %}
+<div class="row">
+    <div class="col-lg-4">
+      <div class="card mb-4">
+        <div class="card-body text-center">
+          {% if perfil_usuario.foto_perfil %}
+            <div class="rounded-circle overflow-hidden mx-auto mb-3" style="width: 250px; height: 250px;">
+              <img src="{{ perfil_usuario.foto_perfil.url }}" alt="avatar" class="w-100 h-100">
+            </div>
+          {% else %}
+            <div class="rounded-circle overflow-hidden mx-auto mb-3" style="width: 250px; height: 250px;">
+              <img src="{% static 'img\fotopordefecto.jpg' %}" alt="avatar" class="w-100 h-100">
+            </div>
+          {% endif %}
+          <h5 class="my-3">{{ user.get_full_name }}</h5>
+          <p class="text-muted mb-1">{{ perfil_usuario.titulo }}</p>
+          <p class="text-muted mb-4">{{ perfil_usuario.ciudad }}</p>
+          {% if request.user == user %}
+          <a href="{% url 'EDP' username=request.user.username %}" class="btn btn-primary">Editar perfil</a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="card mb-4 mb-lg-0">
+        <div class="card-body p-0">
+          <ul class="list-group list-group-flush rounded-3">
+            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+              <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+              <h6 class="mb-0">Descripción y redes sociales:</h6>
+            </li> 
+            {% if perfil_usuario.descripcion %}
+            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+              <i class="fas fa-info-circle mr-2" style="color: #333333;"></i>
+              <p class="mb-0">{{ perfil_usuario.descripcion }}</p>
+            </li>
+            {% endif %}
+            
+            {% if perfil_usuario.twitter %}
+            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+              <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+              <a href="https://twitter.com/{{ perfil_usuario.twitter }}" target="_blank" class="mb-0">{{ perfil_usuario.twitter }}</a>
+            </li>
+            {% endif %}
+            
+            {% if perfil_usuario.instagram %}
+            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+              <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+              <a href="https://www.instagram.com/{{ perfil_usuario.instagram }}" target="_blank" class="mb-0">{{ perfil_usuario.instagram }}</a>
+            </li>
+            {% endif %}
+            
+            {% if perfil_usuario.facebook %}
+            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+              <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+              <a href="https://www.facebook.com/{{ perfil_usuario.facebook }}" target="_blank" class="mb-0">{{ perfil_usuario.facebook }}</a>
+            </li>
+            {% endif %}
+            
+          </ul>
+        </div>
+      </div>      
+    </div>
+    <div class="col-lg-8">
+      <div class="card mb-4">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-3">
+              <p class="mb-0">Nombre Completo</p>
+            </div>
+            <div class="col-sm-9">
+              <p class="text-muted mb-0">{{ user.get_full_name }}</p>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <p class="mb-0">Correo electrónico</p>
+            </div>
+            <div class="col-sm-9">
+              <p class="text-muted mb-0">{{ user.email }}</p>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <p class="mb-0">Nombre de Usuario</p>
+            </div>
+            <div class="col-sm-9">
+              <p class="text-muted mb-0">{{ user.username }}</p>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <p class="mb-0">Rol</p>
+            </div>
+            <div class="col-sm-9">
+              <p class="text-muted mb-0">
+                {% if user.is_superuser %}
+                  Admin
+                {% else %}
+                  {% for group in user.groups.all %}
+                    {{ group.name }}
+                    {% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <p class="mb-0">Fecha de nacimiento</p>
+            </div>
+            <div class="col-sm-9">
+              <p class="text-muted mb-0">{{ perfil_usuario.fecha_nacimiento }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card mb-4 mb-md-0">
+            <div class="card-body">
+              <p class="mb-4"><span class="text-primary font-italic me-1">Contribuciones</span> Noticias realizadas</p>
+              {% if noticias_periodista %}
+                <ul>
+                  {% for noticia in noticias_periodista|slice:":6" %}
+                    <li><a href="{% url 'NON' noticia.idNoticia %}">{{ noticia.Titulo }}</a></li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p>No se encontraron noticias realizadas.</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card mb-4 mb-md-0">
+            <div class="card-body">
+              <p class="mb-4"><span class="text-primary font-italic me-1"></span> Comentarios realizados</p>
+              {% if ultimos_comentarios %}
+                <ul>
+                  {% for comentario in ultimos_comentarios|slice:":6" %}
+                    <li>{{ comentario.texto }} - <a href="{% url 'NON' comentario.noticia.idNoticia %}">{{ comentario.noticia.Titulo }}</a></li>
+
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p>No se encontraron comentarios realizados.</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+{% endblock contenedor %}

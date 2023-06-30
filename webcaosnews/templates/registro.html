@@ -3,186 +3,72 @@
 {% block contenedor %}
 
 <section class="d-flex flex-column min-vh-100 vh-100" style="background-color: #ffffff">
-        <div class="container h-100">
-          <div
-            class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-lg-12 col-xl-11">
-              <div class="card text-black" style="border-radius: 24px">
-                <div class="card-body p-md-5">
-                  <div class="row justify-content-center">
-                    <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                      <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                        Registrese
-                      </p>
-                      <form
-                        action="{%url 'REG' %}"
-                        method="post"
-                        onsubmit="return validaciones()"
-                      >
-                      {% csrf_token %}
-                      <form class="mx-1 mx-md-4">
-                        <div class="d-flex flex-row align-items-center mb-4">
-                          <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                          <div class="form-outline flex-fill mb-0">
-                            <input
-                              required
-                              type="text"
-                              id="usuario"
-                              name="Usuario"
-                              class="form-control"
-                            />
-                            <label class="form-label" for="form3Example1c"
-                              >Nombre de Usuario</label
-                            >
-                          </div>
-                        </div>
-                        <form class="mx-1 mx-md-4">
-                          <div class="d-flex flex-row align-items-center mb-4">
-                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                            <div class="form-outline flex-fill mb-0">
-                              <input
-                                required
-                                type="text"
-                                id="nombre"
-                                name="Nombre"
-                                class="form-control"
-                              />
-                              <label class="form-label" for="form3Example1c"
-                                >Nombre</label
-                              >
-                            </div>
-                          </div>
-
-                          <div class="d-flex flex-row align-items-center mb-4">
-                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                            <div class="form-outline flex-fill mb-0">
-                              <input
-                                required
-                                type="text"
-                                id="apellido"
-                                class="form-control"
-                                name="Apellido"
-                              />
-                              <label class="form-label" for="form3Example1c"
-                                >Apellido</label
-                              >
-                            </div>
-                          </div>
-
-                          <div class="d-flex flex-row align-items-center mb-4">
-                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                            <div class="form-outline flex-fill mb-0">
-                              <input
-                                required
-                                type="email"
-                                id="correo"
-                                name="Correo"
-                                class="form-control"
-                              />
-                              <label class="form-label" for="form3Example3c"
-                                >Correo</label
-                              >
-                            </div>
-                          </div>
-
-                          <div class="d-flex flex-row align-items-center mb-4">
-                            <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                            <div class="form-outline flex-fill mb-0">
-                              <input
-                                required
-                                type="password"
-                                minlength="5"
-                                maxlength="10"
-                                id="txtPass1"
-                                name="TxtPass1"
-                                class="form-control"
-                              />
-                              <label class="form-label" for="form3Example4c"
-                                >Contraseña</label
-                              >
-                            </div>
-                          </div>
-
-                          <div class="d-flex flex-row align-items-center mb-4">
-                            <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                            <div class="form-outline flex-fill mb-0">
-                              <input
-                                required
-                                type="password"
-                                minlength="5"
-                                maxlength="10"
-                                id="txtPass2"
-                                name="TxtPass2"
-                                class="form-control"
-                              />
-                              <label class="form-label" for="form3Example4cd"
-                                >Repita su contraseña</label
-                              >
-                            </div>
-                          </div>
-
-                          <div class="d-flex flex-row align-items-center mb-4">
-                            <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                            <div class="form-outline flex-fill mb-0">
-                              <input
-                                required
-                                type="date"
-                                id="datfecha"
-                                class="form-control"
-                              />
-                              <label class="form-label" for="form3Example4c"
-                                >Fecha de nacimiento</label
-                              >
-                            </div>
-                          </div>
-
-                          <div
-                            class="form-check d-flex justify-content-center mb-5"
-                          >
-                            <input
-                              required
-                              class="form-check-input me-2"
-                              type="checkbox"
-                              value=""
-                              id="form2Example3c"
-                            />
-                            <label class="form-check-label" for="form2Example3">
-                              Estoy de acuerdo con los
-                              <a href="#!">Terminos y condiciones</a>
-                            </label>
-                          </div>
-
-                          <div>
-                            <button
-                              type="submit"
-                              class="btn btn-primary btn-block mb-4"
-                            >
-                              registrarse
-                            </button>
-                            <button
-                              type="reset"
-                              class="btn btn-danger btn-block mb-4"
-                            >
-                              Limpiar
-                            </button>
-                          </div>
-                          <div class="text-center">
-                            <p>
-                              Ya estas Registrado?
-                              <a href="{%url 'LOG' %}">Inicie Secion</a>
-                            </p>
-                          </div>
-                        </form>
-                      </form>
-                    </div>
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 24px">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                  Regístrate
+                </p>
+                <form action="{% url 'REG' %}" method="post" onsubmit="return validaciones()">
+                  {% csrf_token %}
+                  <div class="form-outline mb-4">
+                    <input required type="text" id="usuario" name="Usuario" class="form-control" />
+                    <label class="form-label" for="usuario">Nombre de Usuario</label>
                   </div>
-                </div>
+                  <div class="form-outline mb-4">
+                    <input required type="text" id="nombre" name="Nombre" class="form-control" />
+                    <label class="form-label" for="nombre">Nombre</label>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <input required type="text" id="apellido" name="Apellido" class="form-control" />
+                    <label class="form-label" for="apellido">Apellido</label>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <input required type="email" id="correo" name="Correo" class="form-control" />
+                    <label class="form-label" for="correo">Correo</label>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <input required type="password" minlength="5" maxlength="10" id="txtPass1" name="TxtPass1" class="form-control" />
+                    <label class="form-label" for="txtPass1">Contraseña</label>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <input required type="password" minlength="5" maxlength="10" id="txtPass2" name="TxtPass2" class="form-control" />
+                    <label class="form-label" for="txtPass2">Repita su contraseña</label>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <input required type="date" id="datfecha" name="FechaNacimiento" class="form-control" />
+                    <label class="form-label" for="datfecha">Fecha de nacimiento</label>
+                  </div>
+                  <div class="form-check d-flex justify-content-center mb-4">
+                    <input required class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                    <label class="form-check-label" for="form2Example3c">
+                      Estoy de acuerdo con los <a href="#!">Términos y condiciones</a>
+                    </label>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-block mb-4">Registrarse</button>
+                    <button type="reset" class="btn btn-danger btn-block mb-4">Limpiar</button>
+                  </div>
+                  <div class="text-center">
+                    <p>
+                      ¿Ya estás registrado? <a href="{% url 'LOG' %}">Inicia sesión</a>
+                    </p>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
+  </div>
+</section>
+
+
     {% endblock contenedor %}
     <!-- SCRIPT BOOTSTRAP Y SWEETALERT-->
     {% block js %}

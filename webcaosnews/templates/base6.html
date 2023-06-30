@@ -1,4 +1,4 @@
-<!---BASE INDEX Y SECCIONES-->
+<!---BASE PERFIL-->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -62,59 +62,6 @@
                 <a class="nav-link" href="{%url 'REP' %}">Reportajes</a>
               </li>
 
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="..."
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Contacto
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a
-                      class="dropdown-item icon-facebook-squared"
-                      href="https://www.facebook.com/"
-                      target="_blank"
-                      >Facebook</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="dropdown-item icon-instagram"
-                      href="https://www.instagram.com/"
-                      target="_blank"
-                      >Instagram</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="dropdown-item icon-twitter"
-                      href="https://twitter.com/?lang=es"
-                      target="_blank"
-                      >Twitter</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="dropdown-item icon-whatsapp"
-                      href="https://web.whatsapp.com/"
-                      target="_blank"
-                      >Whatsapp</a
-                    >
-                  </li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li>
-                    <a class="dropdown-item icon-comment" href="{%url 'CON' %}"
-                      >Mensaje</a
-                    >
-                  </li>
-                </ul>
-              </li>
-            </ul>
-
             <form action="{% url 'BUSCAR' %}" class="d-flex" role="search" method="post">
               {% csrf_token %}
               <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="query">
@@ -122,58 +69,6 @@
             </form>
                              
             <form class="d-flex" role="search">
-        <!---USUARIO-->
-        {% if user.is_authenticated %}
-        <div class="dropdown dropdown-edit">
-          <span class="visually-hidden">Perfil</span>
-          <a class="btn btn-outline-success" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {% if perfil_usuario.foto_perfil %}
-              <div class="rounded-circle me-2" style="overflow: hidden; width: 30px; height: 30px;">
-                <img src="{{ perfil_usuario.foto_perfil.url }}" alt="Foto de perfil" class="img-fluid">
-              </div>
-            {% else %}
-              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
-                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
-              </svg>
-            {% endif %}
-          </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item">
-              {% if request.session.role == 'lector' %}
-                <span class="badge bg-secondary mb-2">Lector</span>
-              {% elif request.session.role == 'periodista' %}
-                <span class="badge bg-success mb-2">Periodista</span>
-              {% elif request.session.role == 'supervisor' %}
-                <span class="badge bg-danger mb-2">Supervisor</span>
-              {% endif %}
-              <a class="dropdown-item" href="{% url 'PEF' user.username %}">{{ user.first_name }} {{ user.last_name }}</a>
-              {% if user.is_superuser %}
-                <span class="badge bg-warning">Admin</span>
-              {% endif %}
-            </a>
-            <div class="dropdown-divider"></div>
-            
-            {% if user.is_superuser or 'periodista' in request.session.role %}
-              <a class="dropdown-item" href="{% url 'AGRNON' %}">Agregar Noticia</a>
-              <a class="dropdown-item" href="{% url 'EST' %}">Estado</a>
-              <div class="dropdown-divider"></div>
-            {% endif %}
-            
-            {% if user.is_superuser or 'supervisor' in request.session.role %}
-              <a class="dropdown-item" href="{% url 'ADMNON' %}">Administrador</a>
-              <div class="dropdown-divider"></div>
-            {% endif %}
-            
-            <a class="btn btn-rojo-edit" href="{% url 'LOGOUT' %}">Cerrar Sesión</a>
-          </div>
-        </div>
-      {% else %}
-        <a href="{% url 'LOG' %}" class="btn btn-outline-info" role="button">Ingresar</a>
-        <a href="{% url 'REG' %}" class="btn btn-outline-dark" role="button">Registrarse</a>
-      {% endif %}
-      </div>
-      </nav>
     </header>
     <main>
    {% block contenedor %}
@@ -183,30 +78,7 @@
    
 
    {% endblock contenedor %}
-   
-   {% block pagination %}
-   <nav class="my-4" aria-label="...">
-      <ul class="pagination pagination-circle justify-content-center">
-          <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Atras</a>
-          </li>
-          {% for num in numeros_pagina %}
-              {% if num == page_obj.number %}
-                  <li class="page-item active">
-                      <a class="page-link" href="#">{{ num }}</a>
-                  </li>
-              {% else %}
-                  <li class="page-item">
-                      <a class="page-link" href="{{ url }}?page={{ num }}">{{ num }}</a>
-                  </li>
-              {% endif %}
-          {% endfor %}
-          <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
-          </li>
-      </ul>
-   </nav>
-   {% endblock %}
+  
      
     </main>  
     <!---FOOOTER-->
@@ -257,9 +129,6 @@
                     </li>
                     <li>
                       <a href="{%url 'DEP' %}" class="text-dark">Deportes</a>
-                    </li>
-                    <li>
-                      <a href="{%url 'CON' %}" class="text-dark">Contacto</a>
                     </li>
                   </ul>
                 </div>

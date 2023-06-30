@@ -5,8 +5,6 @@ from django.contrib.auth.models import Group, Permission
 
 # Create your models here.
 
-
-
 class Categorias(models.Model):
     nombre=models.CharField(primary_key=True,max_length=45)
     
@@ -46,3 +44,17 @@ class Comentarios(models.Model):
     
     def __str__(self):
         return f"Comentario por {self.usuario.username}"
+
+class PerfilUsuario(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil')
+    foto_perfil = models.ImageField(upload_to='foto', null=True, blank=True)
+    fecha_nacimiento = models.DateField(null=True, blank=True)
+    titulo = models.CharField(max_length=100, blank=True)
+    ciudad = models.CharField(max_length=100, blank=True)
+    descripcion = models.CharField(max_length=300, blank=True)
+    twitter = models.CharField(max_length=100, blank=True)
+    instagram = models.CharField(max_length=100, blank=True)
+    facebook = models.CharField(max_length=100, blank=True)
+
+    def __str__(self) -> str:
+        return super().__str__()

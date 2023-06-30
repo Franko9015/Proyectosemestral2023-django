@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
-
+from django.contrib.auth.models import Group
 from datetime import datetime
 from .models import *
 from django.http import JsonResponse
@@ -11,6 +11,8 @@ from django.contrib.auth import logout, login as login_aut, authenticate
 from django.contrib.auth.decorators import login_required,permission_required
 from django.contrib.auth import views as auth_views
 import random
+from django.urls import reverse
+
 
 
 # Create your views here.
@@ -197,11 +199,13 @@ def login(request):
         usu = authenticate(request, username=usern, password=cont)
         
         if usu is not None and usu.is_active:
-            grupo= (User.objects.get(username=usern)).groups.all()
-            print(grupo[0].name)
-            request.session['role']=grupo[0].name
+            grupos = usu.groups.all()
+            if grupos.exists():
+                request.session['role'] = grupos[0].name
+            else:
+                request.session['role'] = 'lector'  # Establecer 'lector' como el grupo por defecto si el usuario no tiene grupos asignados
             login_aut(request, usu)
-            return redirect('IND')  # Redireccionar al index después de autenticarse correctamente
+            return redirect('IND')
         else:
             mensaje = 'Usuario/contraseña inválida'
             return render(request, "ingreso.html", {'mensaje': mensaje})
@@ -211,25 +215,32 @@ def login(request):
 
 
 def registro(request):
-    data={'mensaje':''}
+    data = {'mensaje': ''}
     if request.method == 'POST':
-        nom= request.POST.get("Nombre")
-        usu= request.POST.get("Usuario")
-        ape= request.POST.get("Apellido")
-        cor= request.POST.get("Correo")
-        cont= request.POST.get("TxtPass1")
-        usuario=User()
-        usuario.first_name=nom
-        usuario.username=usu
-        usuario.last_name=ape
-        usuario.email=cor
+        nom = request.POST.get("Nombre")
+        usu = request.POST.get("Usuario")
+        ape = request.POST.get("Apellido")
+        cor = request.POST.get("Correo")
+        cont = request.POST.get("TxtPass1")
+        fecha_nac = request.POST.get("FechaNacimiento")
+        usuario = User()
+        usuario.first_name = nom
+        usuario.username = usu
+        usuario.last_name = ape
+        usuario.email = cor
         usuario.set_password(cont)
         try:
             usuario.save()
-            data['mensaje']='Grabo Usuario'
+            perfil = PerfilUsuario()
+            perfil.user = usuario
+            perfil.fecha_nacimiento = datetime.strptime(fecha_nac, '%Y-%m-%d').date()
+            perfil.save()
+            grupo_lector = Group.objects.get(name='lector')
+            usuario.groups.add(grupo_lector)
+            data['mensaje'] = 'Usuario registrado exitosamente'
         except:
-           data['mensaje']='Error al grabar' 
-    return render(request, "registro.html",data)
+            data['mensaje'] = 'Error al registrar el usuario'
+    return render(request, "registro.html", data)
 
 
 def contacto(request):
@@ -333,7 +344,7 @@ def adminnoticia(request):
 @permission_required(['webcaosnews.change_noticia', 'webcaosnews.delete_noticia'])
 def estado_noticia(request):
     if request.method == 'POST':
-        # Obtener los datos del formulario
+        # Obtener los datos del formulario y procesarlos
         for key, value in request.POST.items():
             if key.startswith('observaciones_'):
                 # Obtener el ID de la noticia
@@ -359,11 +370,82 @@ def estado_noticia(request):
         # Redirigir nuevamente a la página de estado de noticia
         return redirect('EST')
 
-    # Obtener las noticias del usuario actual
-    noticias = Noticia.objects.filter(usuario=request.user)
+    # Verificar el grupo de usuario del solicitante
+    role = request.session.get('role')
+
+    if role == 'supervisor' or request.user.is_superuser:
+        # Si es Supervisor o Superadmin, obtener todas las noticias
+        noticias = Noticia.objects.all()
+    elif role == 'periodista':
+        # Si es Periodista, obtener solo sus propias noticias
+        noticias = Noticia.objects.filter(usuario=request.user)
+    else:
+        # Si no tiene un grupo específico, no mostrar ninguna noticia
+        noticias = []
 
     context = {'noticias': noticias}
     return render(request, 'estado.html', context)
+
+
+
+def perfil(request, username):
+    user = get_object_or_404(User, username=username)
+    perfil_usuario = get_object_or_404(PerfilUsuario, user=user)
+
+    noticias_periodista = []
+    ultimos_comentarios = []
+
+    if user.groups.filter(name='periodista').exists() or user.is_superuser:
+        noticias_periodista = Noticia.objects.filter(usuario=user)
+
+    if user.groups.filter(name='lector').exists() or user.is_superuser:
+        ultimos_comentarios = Comentarios.objects.filter(usuario=user).order_by('-fecha')[:5]
+    
+    is_owner = request.user == user  # Verificar si el usuario autenticado es el propietario del perfil
+
+    data = {
+        'user': user,
+        'perfil_usuario': perfil_usuario,
+        'noticias_periodista': noticias_periodista,
+        'ultimos_comentarios': ultimos_comentarios,
+        'is_owner': is_owner  # Pasar el indicador de propiedad al contexto
+    }
+
+    return render(request, 'perfil.html', data)
+
+@login_required(login_url='/Login/')
+def editar_perfil(request, username):
+    user = User.objects.get(username=username)
+    perfil_usuario, created = PerfilUsuario.objects.get_or_create(user=user)
+    
+    if request.method == 'POST':
+        fotoperfil = request.FILES.get("id_foto_perfil")
+        descripcion = request.POST.get("iddescripcion")
+        twitter = request.POST.get("idtwitter")
+        instagram = request.POST.get("idinstagram")
+        facebook = request.POST.get("idfacebook")
+
+        perfil_usuario.foto_perfil = fotoperfil
+        perfil_usuario.descripcion = descripcion
+        perfil_usuario.twitter = twitter
+        perfil_usuario.instagram = instagram
+        perfil_usuario.facebook = facebook
+
+        perfil_usuario.save()
+        mensaje = "Perfil actualizado con éxito."
+        data = {
+            'username': username,
+            'mensaje': mensaje,
+        }
+        return redirect(reverse('PEF', kwargs={'username': username}))
+    
+    data = {
+        'username': username,
+    }
+    return render(request, 'editarperfil.html', data)
+
+
+
 
 @login_required(login_url='/Login/')
 @permission_required('webcaosnews.change_noticia')
