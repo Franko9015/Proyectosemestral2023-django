@@ -38,47 +38,84 @@
       </div>      
       <br>        
       <!--Marcador economico-->
-            <div class="tradingview-widget-container">
-              <div class="tradingview-widget-container__widget"></div>
-              <div class="tradingview-widget-copyright"><a href="https://es.tradingview.com/markets/" rel="noopener" target="_blank"><span class="blue-text">Mercados hoy</span></a> por TradingView</div>
-              <script type="text/javascript" 
-              src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" 
-              async>
-              {
-              "symbols": [
-                {
-                  "proName": "FOREXCOM:SPXUSD",
-                  "title": "S&P 500"
-                },
-                {
-                  "proName": "FOREXCOM:NSXUSD",
-                  "title": "US 100"
-                },
-                {
-                  "proName": "FX_IDC:EURUSD",
-                  "title": "EUR/USD"
-                },
-                {
-                  "description": "",
-                  "proName": "ECONOMICS:CLCF"
-                },
-                {
-                  "description": "",
-                  "proName": "ECONOMICS:CLEP"
-                },
-                {
-                  "description": "",
-                  "proName": "NASDAQ:TSLA"
-                }
-              ],
-              "showSymbolLogo": true,
-              "colorTheme": "light",
-              "isTransparent": false,
-              "displayMode": "adaptive",
-              "locale": "es"
-              }
-              </script>
-            </div>
+      <style>
+        .carousel-content {
+          background-color: #f8f9fa;
+          padding: 22px;
+          text-align: center;
+        }
+      </style>
+      
+      <div id="carouselIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div id="UF" class="carousel-content"></div>
+          </div>
+          <div class="carousel-item">
+            <div id="DolarO" class="carousel-content"></div>
+          </div>
+          <div class="carousel-item">
+            <div id="Euro" class="carousel-content"></div>
+          </div>
+          <div class="carousel-item">
+            <div id="IPC" class="carousel-content"></div>
+          </div>
+          <div class="carousel-item">
+            <div id="UTM" class="carousel-content"></div>
+          </div>
+          <div class="carousel-item">
+            <div id="IVP" class="carousel-content"></div>
+          </div>
+          <div class="carousel-item">
+            <div id="Imacec" class="carousel-content"></div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+      </div>
+      
+      <script>
+        fetch('https://mindicador.cl/api').then(function(response) {
+          return response.json();
+      }).then(function(dailyIndicators) {
+          document.getElementById("UF").innerHTML = `
+            <h2>Valor actual de la UF</h2>
+            <h3>$${dailyIndicators.uf.valor}</h3>
+          `;
+          document.getElementById("DolarO").innerHTML = `
+            <h2>Valor actual del Dólar observado</h2>
+            <h3>$${dailyIndicators.dolar.valor}</h3>
+          `;
+          document.getElementById("Euro").innerHTML = `
+            <h2>Valor actual del Euro</h2>
+            <h3>$${dailyIndicators.euro.valor}</h3>
+          `;
+          document.getElementById("IPC").innerHTML = `
+            <h2>Valor actual del IPC</h2>
+            <h3>${dailyIndicators.ipc.valor}</h3>
+          `;
+          document.getElementById("UTM").innerHTML = `
+            <h2>Valor actual de la UTM</h2>
+            <h3>$${dailyIndicators.utm.valor}</h3>
+          `;
+          document.getElementById("IVP").innerHTML = `
+            <h2>Valor actual del IVP</h2>
+            <h3>$${dailyIndicators.ivp.valor}</h3>
+          `;
+          document.getElementById("Imacec").innerHTML = `
+            <h2>Valor actual del Imacec</h2>
+            <h3>${dailyIndicators.imacec.valor}</h3>
+          `;
+      }).catch(function(error) {
+          console.log('Request failed', error);
+      });
+      </script>
 <!-- Fin Marcador economico -->
       <br>
        <!--Insertar Lo Demas-->
@@ -133,6 +170,11 @@
 <!--Section: Content-->
   
   {% endblock contenedor %}
+{% block js %}
+
+
+
+{% endblock js %}
 
   {% block pagination %}
     {{ block.super }}
